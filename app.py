@@ -11,9 +11,11 @@ from flask import session
 import sqlite3
 import os
 
+currentdirectory = os.path.dirname(os.path.abspath(__file__))
+
 app = flask.Flask(__name__)
 
-conn = sqlite3.connect('misproject_database.db')
+connection = sqlite3.connect(currentdirectory+"\misproject_database.db")
 conn.execute('CREATE TABLE User (userAccount integer primary key, userPassword integer)')
 conn.close()
 
