@@ -11,11 +11,9 @@ from flask import session
 import sqlite3
 import os
 
-currentdirectory = os.path.dirname(os.path.abspath(__file__))
-
 app = flask.Flask(__name__)
 
-connection = sqlite3.connect(currentdirectory+"\misproject_database.db")
+conn = sqlite3.connect('db_MISproject.db')
 conn.execute('CREATE TABLE User (userAccount integer primary key, userPassword integer)')
 conn.close()
 
@@ -31,7 +29,7 @@ def register_getData():
     
     if request.method=='POST':
         try:
-            con=sqlite3.connect("misproject_database.db")
+            con=sqlite3.connect('db_MISproject.db')
             cur=con.cursor()
             cur.execute("insert into User(userAccount,userPassword) values(?,?)",(userAccount,userPassword))
             con.comit()
