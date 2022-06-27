@@ -14,7 +14,7 @@ import os
 app = flask.Flask(__name__)
 
 conn = sqlite3.connect('misproject_database.db')
-conn.execute('CREATE TABLE User (userAccount TEXT primary key, userPassword TEXT)')
+conn.execute('CREATE TABLE User (userAccount integer primary key, userPassword integer)')
 conn.close()
 
 @app.route('/', methods=['GET','POST'])
