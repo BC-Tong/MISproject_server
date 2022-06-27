@@ -22,26 +22,25 @@ def register_getData():
     #int 只是用來測試用
     userAccount  = int(request.form['Account'])
     userPassword = int(request.form['Password'])
-    return str(userAccount+userPassword)
-
-
-    '''
+    
     if request.method=='POST':
         try:
-            userAccount=str(request.form['Account'])
+            userAccount =str(request.form['Account'])
             userPassword=str(request.form['Password'])
 
             con=sqlite3.connect("db_MISproject.db")
             cur=con.cursor()
             cur.execute("insert into User(userAccount,userPassword) values(?,?)",(userAccount,userPassword))
             con.comit()
+            msg = "Record successfully added"
             
         except:
             return("Error in insert Operation","danger")
         finally:
             #return "value1"+userAccount+"value2"+userPassword
             con.close()
-    '''
+    
+    return str(userAccount+userPassword)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
