@@ -13,9 +13,9 @@ import os
 
 app = flask.Flask(__name__)
 
-#conn = sqlite3.connect('misproject_database.db')
-#conn.execute('CREATE TABLE User (userAccount TEXT, userPassword TEXT)')
-#conn.close()
+conn = sqlite3.connect('misproject_database.db')
+conn.execute('CREATE TABLE User (userAccount TEXT primary key, userPassword TEXT)')
+conn.close()
 
 @app.route('/', methods=['GET','POST'])
 def handle_call():
@@ -29,7 +29,7 @@ def register_getData():
     
     if request.method=='POST':
         try:
-            con=sqlite3.connect("db_MISproject.db")
+            con=sqlite3.connect("misproject_database.db")
             cur=con.cursor()
             cur.execute("insert into User(userAccount,userPassword) values(?,?)",(userAccount,userPassword))
             con.comit()
