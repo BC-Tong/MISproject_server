@@ -20,9 +20,9 @@ def handle_call():
 @app.route('/register', methods=['GET','POST'])
 def register_getData():
     #int 只是用來測試用
-    #userAccount  = int(request.form['Account'])
-    #userPassword = int(request.form['Password'])
-    return "Successfully Connected!!!"#str(userAccount+userPassword)
+    userAccount  = int(request.form['Account'])
+    userPassword = int(request.form['Password'])
+    return str(userAccount+userPassword)
 
 
     '''
