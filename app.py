@@ -42,7 +42,7 @@ def register_getData():
             #return "value1"+userAccount+"value2"+userPassword
             con.close()
     '''
-    return str(summary)
+    return 'Hello from flask'
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
