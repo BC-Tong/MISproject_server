@@ -13,9 +13,9 @@ import os
 
 app = flask.Flask(__name__)
 
-conn = sqlite3.connect('db_MISproject.db')
-conn.execute('CREATE TABLE User (userAccount integer primary key, userPassword integer)')
-conn.close()
+#conn = sqlite3.connect('db_MISproject.db')
+#conn.execute('CREATE TABLE User (userAccount integer primary key, userPassword integer)')
+#conn.close()
 
 @app.route('/', methods=['GET','POST'])
 def handle_call():
@@ -26,7 +26,8 @@ def register_getData():
     #int 只是用來測試用
     userAccount  = int(request.form['Account'])
     userPassword = int(request.form['Password'])
-    
+    summary = userAccount+userPassword
+    '''
     if request.method=='POST':
         try:
             con=sqlite3.connect('db_MISproject.db')
@@ -40,8 +41,8 @@ def register_getData():
         finally:
             #return "value1"+userAccount+"value2"+userPassword
             con.close()
-    
-    return str(userAccount+userPassword)
+    '''
+    return str(summary)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
