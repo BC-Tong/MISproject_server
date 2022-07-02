@@ -10,7 +10,7 @@ from flask import session
 
 import sqlite3
 import os
-import 
+
 
 app = flask.Flask(__name__)
 
@@ -43,7 +43,7 @@ def register_getData():
             #return "value1"+userAccount+"value2"+userPassword
             con.close()
     '''
-    return 'Hello from flask'
+    return summary
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
