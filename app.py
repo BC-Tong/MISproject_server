@@ -24,22 +24,6 @@ def register_action():
     com.commit()
     con.close()
     return '註冊成功'
-    
-    '''
-    if request.method=='POST':
-        try:
-            con=sqlite3.connect('db_MISproject.db')
-            cur=con.cursor()
-            cur.execute("insert into user(userAccount,userPassword) values(?,?)",(userAccount,userPassword))
-            con.comit()
-            msg = "Record successfully added"
-            
-        except:
-            return("Error in insert Operation","danger")
-        finally:
-            #return "value1"+userAccount+"value2"+userPassword
-            con.close()
-     '''
 
 @app.route('/', methods=['GET','POST'])
 def handle_call():
@@ -54,6 +38,22 @@ if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
 
 
+ '''
+    if request.method=='POST':
+        try:
+            con=sqlite3.connect('db_MISproject.db')
+            cur=con.cursor()
+            cur.execute("insert into user(userAccount,userPassword) values(?,?)",(userAccount,userPassword))
+            con.comit()
+            msg = "Record successfully added"
+            
+        except:
+            return("Error in insert Operation","danger")
+        finally:
+            #return "value1"+userAccount+"value2"+userPassword
+            con.close()
+ '''
+    
 '''
 @app.route('/save', methods=['POST'])
 def handle_save():
