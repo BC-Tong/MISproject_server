@@ -14,26 +14,23 @@ import os
 
 app = flask.Flask(__name__)
 
-#conn = sqlite3.connect('db_MISproject.db')
-#conn.execute('CREATE TABLE User (userAccount integer primary key, userPassword integer)')
-#conn.close()
-
-@app.route('/', methods=['GET','POST'])
-def handle_call():
-    return "Successfully Connected!!!"
-
-@app.route('/register', methods=['GET','POST'])
-def register_getData():
-    #int 只是用來測試用
+def register_action():
     userAccount  = int(request.form['Account'])
     userPassword = int(request.form['Password'])
-    summary = userAccount+userPassword
+    
+    con = sqlite3.connect('db_MISproject.db')
+    cur = con.cursor()
+    cur.execute("INSERT INTO user(userAccount,userPassword) values(?,?)",(userAccount,userPassword))
+    com.commit()
+    con.close()
+    return '註冊成功'
+    
     '''
     if request.method=='POST':
         try:
             con=sqlite3.connect('db_MISproject.db')
             cur=con.cursor()
-            cur.execute("insert into User(userAccount,userPassword) values(?,?)",(userAccount,userPassword))
+            cur.execute("insert into user(userAccount,userPassword) values(?,?)",(userAccount,userPassword))
             con.comit()
             msg = "Record successfully added"
             
@@ -42,9 +39,17 @@ def register_getData():
         finally:
             #return "value1"+userAccount+"value2"+userPassword
             con.close()
-    '''
-    return summary
+     '''
 
+@app.route('/', methods=['GET','POST'])
+def handle_call():
+    return "Successfully Connected!!!"
+
+@app.route('/register', methods=['GET','POST'])
+def register_getData():
+    if request.method=='POST':
+        return register_action()
+    
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
 
