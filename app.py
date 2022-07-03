@@ -20,7 +20,7 @@ def register_action():
     
     con = sqlite3.connect('db_MISproject.db')
     cur = con.cursor()
-    cur.execute("INSERT INTO user(userAccount,userPassword) values(?,?)",(userAccount,userPassword))
+    cur.execute("INSERT INTO user(userAccount,userPassword) values(?,?)",(2,2))
     com.commit()
     con.close()
     return '註冊成功'
