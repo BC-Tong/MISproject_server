@@ -15,8 +15,8 @@ import os
 app = flask.Flask(__name__)
 
 def register_action():
-    userAccount  = int(request.form['Account'])
-    userPassword = int(request.form['Password'])
+    userAccount  = request.form['Account']
+    userPassword = request.form['Password']
     
     con = sqlite3.connect('db_MISproject.db')
     cur = con.cursor()
