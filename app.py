@@ -15,16 +15,30 @@ import os
 app = flask.Flask(__name__)
 
 def register_action():
-    
-    userAccount  = request.form['Account']
+    userName  = request.form['Name']
     userPassword = request.form['Password']
-    '''
+    userMail = request.form['Mail']
+    userGender = request.form['Gender']
+    userBirthday = request.form['Birthday']
+    
     con = sqlite3.connect('db_MISproject.db')
     cur = con.cursor()
-    cur.execute("INSERT INTO user(userAccount,userPassword) values(?,?)",(userAccount,userPassword))
+    
+    #檢查email
+    cur.execute('SELECT * FROM User_table WHERE `UserMail` = "{userMail}"')
+    queryresult = cur.fetchall()
+    if queryresult:
+        return 'email已存在，請使用另一個email'
+    
+    #檢查userName
+    cur.execute('SELECT * FROM User_table WHERE `UserName` = "{userName}"')
+    queryresult = cur.fetchall()
+    if queryresult:
+        return '該名稱已被使用，請使用另一個名稱'
+    
+    cur.execute("INSERT INTO User_table(UserName,UserPassword,UserMail,UserGender,UserBirthday) values(?,?)",(userName,userPassword,userMail,userGender,userBirthday))
     com.commit()
     con.close()
-    '''
     return '註冊成功'
 
 def login_check(userAccount,userPassword):
@@ -45,9 +59,8 @@ def handle_call():
 @app.route('/register', methods=['GET','POST'])
 def register_getData():
     if request.method=='POST':
-        userAccount  = request.form['Account']
-        userPassword = request.form['Password']
         return register_action()
+    
     
 @app.route('/login', methods=['GET','POST'])
 def login():
