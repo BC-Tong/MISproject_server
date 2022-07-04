@@ -69,11 +69,14 @@ def login():
     userAccount  = int(request.form['Account'])
     userPassword = int(request.form['Password'])
     if request.method=='POST':
+        '''
         result = login_check(userAccount,userPassword)
         if result = True:
             return 1        #1表示登入成功
         else:
             return 0        #0表示登入失敗
+        '''
+        return 'flask login route'
     
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
