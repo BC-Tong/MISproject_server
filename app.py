@@ -18,13 +18,13 @@ def register_action():
     
     userAccount  = request.form['Account']
     userPassword = request.form['Password']
-    
+    '''
     con = sqlite3.connect('db_MISproject.db')
     cur = con.cursor()
     cur.execute("INSERT INTO user(userAccount,userPassword) values(?,?)",(userAccount,userPassword))
     com.commit()
     con.close()
-    
+    '''
     return '註冊成功'
 
 def login_check(userAccount,userPassword):
@@ -45,24 +45,9 @@ def handle_call():
 @app.route('/register', methods=['GET','POST'])
 def register_getData():
     if request.method=='POST':
-        '''
-        userAccount  = 1
-        userPassword = 1
-        con = sqlite3.connect('db_MISproject.db')
-        cur = con.cursor()
-        cur.execute('CREATE TABLE IF NOT EXISTS Member('
-               'id INTEGER PRIMARY KEY, '
-               'name TEXT, '
-               'email TEXT, '
-               'password TEXT)')
-        cur.execute("INSERT INTO Member(id,name,email,password) values(?,?,?,?)",(1,1,1,1))
-        com.commit()
-        con.close()
-        '''
-        
         userAccount  = request.form['Account']
         userPassword = request.form['Password']
-        return str(userAccount)
+        return register_action()
     
 @app.route('/login', methods=['GET','POST'])
 def login():
