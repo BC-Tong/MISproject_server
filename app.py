@@ -48,11 +48,16 @@ def register_getData():
         userPassword = 1
         con = sqlite3.connect('db_MISproject.db')
         cur = con.cursor()
-        cur.execute("INSERT INTO user(userAccount,userPassword) values(?,?)",(userAccount,userPassword))
+        cur.execute('CREATE TABLE IF NOT EXISTS Member('
+               'id INTEGER PRIMARY KEY, '
+               'name TEXT, '
+               'email TEXT, '
+               'password TEXT)')
+        cur.execute("INSERT INTO Member(id,name,email,password) values(?,?,?,?)",(1,1,1,1))
         com.commit()
         con.close()
         
-        return str(userAccount+userPassword)
+        return register_action()
     
 @app.route('/login', methods=['GET','POST'])
 def login():
