@@ -7,6 +7,7 @@ from flask import flash
 from flask import redirect
 from flask import url_for
 from flask import session
+from flask import jsonify
 
 import sqlite3
 import os
@@ -65,19 +66,21 @@ def register_getData():
         userGender = request.form['Gender']
         userBirthday = request.form['Birthday']
         
-        return register_action()
+        return jsonify(userName=userName ,userPassword=userPassword ,userMail=userMail,userGender=userGender,userBirthday=userBirthday)
     
     
 @app.route('/login', methods=['GET','POST'])
 def login():
     userAccount  = int(request.form['Account'])
     userPassword = int(request.form['Password'])
+    '''
     if request.method=='POST':
         result = login_check(userAccount,userPassword)
         if result = True:
             return 1        #1表示登入成功
         else:
             return 0        #0表示登入失敗
+    '''
     
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
