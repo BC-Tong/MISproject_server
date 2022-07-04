@@ -43,7 +43,16 @@ def handle_call():
 @app.route('/register', methods=['GET','POST'])
 def register_getData():
     if request.method=='POST':
-        return register_action()
+        
+        userAccount  = 1
+        userPassword = 1
+        con = sqlite3.connect('db_MISproject.db')
+        cur = con.cursor()
+        cur.execute("INSERT INTO user(userAccount,userPassword) values(?,?)",(userAccount,userPassword))
+        com.commit()
+        con.close()
+        
+        return str(userAccount+userPassword)
     
 @app.route('/login', methods=['GET','POST'])
 def login():
