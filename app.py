@@ -15,12 +15,13 @@ import os
 app = flask.Flask(__name__)
 
 def register_action():
+    #取得Data
     userName  = request.form['Name']
     userPassword = request.form['Password']
     userMail = request.form['Mail']
     userGender = request.form['Gender']
     userBirthday = request.form['Birthday']
-    
+    #連接db_MISproject.db
     con = sqlite3.connect('db_MISproject.db')
     cur = con.cursor()
     
@@ -29,13 +30,12 @@ def register_action():
     queryresult = cur.fetchall()
     if queryresult:
         return 'email已存在，請使用另一個email'
-    
     #檢查userName
     cur.execute('SELECT * FROM User_table WHERE `UserName` = "{userName}"')
     queryresult = cur.fetchall()
     if queryresult:
         return '該名稱已被使用，請使用另一個名稱'
-    
+    #將資料放入User_table中
     cur.execute("INSERT INTO User_table(UserName,UserPassword,UserMail,UserGender,UserBirthday) values(?,?)",(userName,userPassword,userMail,userGender,userBirthday))
     com.commit()
     con.close()
@@ -73,14 +73,11 @@ def login():
     userAccount  = int(request.form['Account'])
     userPassword = int(request.form['Password'])
     if request.method=='POST':
-        '''
         result = login_check(userAccount,userPassword)
         if result = True:
             return 1        #1表示登入成功
         else:
             return 0        #0表示登入失敗
-        '''
-        return 'flask login route'
     
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
