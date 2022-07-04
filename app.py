@@ -59,6 +59,12 @@ def handle_call():
 @app.route('/register', methods=['GET','POST'])
 def register_getData():
     if request.method=='POST':
+        userName  = request.form['Name']
+        userPassword = request.form['Password']
+        userMail = request.form['Mail']
+        userGender = request.form['Gender']
+        userBirthday = request.form['Birthday']
+        
         return register_action()
     
     
