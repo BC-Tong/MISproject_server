@@ -66,7 +66,8 @@ def register_getData():
         userGender = request.form['Gender']
         userBirthday = request.form['Birthday']
         
-        return jsonify(userName=userName ,userPassword=userPassword ,userMail=userMail,userGender=userGender,userBirthday=userBirthday)
+        return register_action()
+        #return jsonify(userName=userName ,userPassword=userPassword ,userMail=userMail,userGender=userGender,userBirthday=userBirthday)
     
     
 @app.route('/login', methods=['GET','POST'])
