@@ -42,10 +42,10 @@ def register_action():
     con.close()
     return '註冊成功'
 
-def login_check(userAccount,userPassword):
+def login_check(userName,userPassword):
     con = sqlite3.connect('db_MISproject.db')
     cur = con.cursor()
-    querydata = cur.execute("SELECT * FROM user WHERE userAccount=? AND userPassword=?",(userAccount,userPassword))
+    querydata = cur.execute("SELECT * FROM user WHERE userAccount=? AND userPassword=?",(userName,userPassword))
     results = cur.fetchall()
     con.close
     if results:
@@ -74,11 +74,11 @@ def register_getData():
     
 @app.route('/login', methods=['GET','POST'])
 def login():
-    userMail  = int(request.form['Mail'])
+    userName  = int(request.form['Name'])
     userPassword = int(request.form['Password'])
     
     if request.method=='POST':
-        result = login_check(userMail,userPassword)
+        result = login_check(userName,userPassword)
         if result = True:
             return "1"        #1表示登入成功
         else:
