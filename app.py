@@ -25,7 +25,7 @@ def register_action():
     elif not password:
         return '請輸入password'
     elif not sex:
-        return '請輸入password'
+        return '請輸入性別'
     elif not birthdate:
         return '請輸入出生年月日'
     
