@@ -1,9 +1,9 @@
 from flask import Flask, request
 import sqlite3, os, sys
 
-os.path.join(__file__, 'mywebsite.db')
+os.path.join(__file__, 'MISProject_database.db')
 print(os.path.abspath(os.path.dirname(__file__)))
-print(os.path.abspath(os.path.dirname('mywebsite.db')))
+print(os.path.abspath(os.path.dirname('MISProject_database.db')))
 
 
 app = Flask(__name__)
@@ -30,23 +30,23 @@ def register_action():
         return '請輸入出生年月日'
     
 
-    con =sqlite3.connect('mywebsite.db')
+    con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
     
-    cur.execute(f'SELECT * FROM user WHERE `email` = "{email}"')
+    cur.execute(f'SELECT * FROM user WHERE `UserMail` = "{email}"')
     queryresult = cur.fetchone
     if queryresult:
         return 'email重複,請使用另一個email'
         
-    cur.execute(f"INSERT INTO user (`username`, `email`, `password`, `sex`, `birthdate`) VALUES ('{username}','{email}','{password}', '{sex}', '{birthdate}')")
+    cur.execute(f"INSERT INTO User_table (`UserName`, `UserMail`, `UserPassword`, `UserSex`, `UserBirthdate`) VALUES ('{username}','{email}','{password}', '{sex}', '{birthdate}')")
     con.commit()
     con.close()
     return '註冊成功'
 
 def login_check(email, password):
-    con = sqlite3.connect('mywebsite.db')
+    con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f"SELECT * FROM user WHERE `email`='"+email+"'AND `password`='"+password+"'")
+    querydata = cur.execute(f"SELECT * FROM User_table WHERE `UserMail`='"+email+"'AND `UserPassword`='"+password+"'")
     results = cur.fetchall()
     con.close()
 
@@ -57,9 +57,9 @@ def login_check(email, password):
 
 
 def login_action(email):
-    con = sqlite3.connect('mywebsite.db')
+    con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f"SELECT username FROM user WHERE `email`='"+email+"'")
+    querydata = cur.execute(f"SELECT UserName FROM User_table WHERE `UserMail`='"+email+"'")
     con.close
     result = querydata.fetchone()
     if result:
