@@ -74,11 +74,11 @@ def register_getData():
     
 @app.route('/login', methods=['GET','POST'])
 def login():
-    userAccount  = int(request.form['Account'])
+    userMail  = int(request.form['Mail'])
     userPassword = int(request.form['Password'])
     '''
     if request.method=='POST':
-        result = login_check(userAccount,userPassword)
+        result = login_check(userMail,userPassword)
         if result = True:
             return 1        #1表示登入成功
         else:
