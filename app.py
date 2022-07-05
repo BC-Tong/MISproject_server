@@ -60,6 +60,7 @@ def handle_call():
 @app.route('/register', methods=['GET','POST'])
 def register_getData():
     if request.method=='POST':
+        a=123
         userName  = request.form['Name']
         userPassword = request.form['Password']
         userMail = request.form['Mail']
@@ -67,7 +68,8 @@ def register_getData():
         userBirthday = request.form['Birthday']
         
         #return register_action()
-        return jsonify(userName=userName ,userPassword=userPassword ,userMail=userMail,userGender=userGender,userBirthday=userBirthday)
+        #return jsonify(userName=userName ,userPassword=userPassword ,userMail=userMail,userGender=userGender,userBirthday=userBirthday)
+        return a
     
     
 @app.route('/login', methods=['GET','POST'])
