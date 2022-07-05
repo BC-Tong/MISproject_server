@@ -76,14 +76,14 @@ def register_getData():
 def login():
     userMail  = int(request.form['Mail'])
     userPassword = int(request.form['Password'])
-    '''
+    
     if request.method=='POST':
         result = login_check(userMail,userPassword)
         if result = True:
-            return 1        #1表示登入成功
+            return "1"        #1表示登入成功
         else:
-            return 0        #0表示登入失敗
-    '''
+            return "0"        #0表示登入失敗
+    
     
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
