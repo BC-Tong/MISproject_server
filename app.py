@@ -69,7 +69,7 @@ def register_getData():
         
         #return register_action()
         #return jsonify(userName=userName ,userPassword=userPassword ,userMail=userMail,userGender=userGender,userBirthday=userBirthday)
-        return a
+        return 'return from flask'
     
     
 @app.route('/login', methods=['GET','POST'])
