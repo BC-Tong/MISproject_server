@@ -61,15 +61,10 @@ def handle_call():
 def register_getData():
     if request.method=='POST':
         a="123"
-        userName  = request.form['Name']
-        userPassword = request.form['Password']
-        userMail = request.form['Mail']
-        userGender = request.form['Gender']
-        userBirthday = request.form['Birthday']
         
-        #return register_action()
+        return register_action()
         #return jsonify(userName=userName ,userPassword=userPassword ,userMail=userMail,userGender=userGender,userBirthday=userBirthday)
-        return a
+        #return a
     
     
 @app.route('/login', methods=['GET','POST'])
@@ -79,7 +74,7 @@ def login():
     
     if request.method=='POST':
         result = login_check(userName,userPassword)
-        if result = True:
+        if result:
             return "1"        #1表示登入成功
         else:
             return "0"        #0表示登入失敗
