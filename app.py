@@ -23,8 +23,8 @@ def register_action():
         return '請輸入username'
     elif not email:
         return '請輸入email'
-    elif email != re.compile('\w+@\w+\.[a-z]{3}')
-        return 'email格式錯誤'
+    #elif email != re.compile('\w+@\w+\.[a-z]{3}')
+    #    return 'email格式錯誤'
     elif not password:
         return '請輸入password'
     elif len(password)<4:
