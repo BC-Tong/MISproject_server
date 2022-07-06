@@ -23,8 +23,8 @@ def register_action():
         return '請輸入username'
     elif not email:
         return '請輸入email'
-    elif email.find("@") == -1 or not email.endswith('.com'):
-        return 'email格式錯誤'
+    #elif email.find("@") == -1 or not email.endswith('.com'):
+    #    return 'email格式錯誤'
     elif not password:
         return '請輸入password'
     elif len(password)<4:
@@ -33,7 +33,7 @@ def register_action():
         return '請輸入性別'
     elif not birthdate:
         return '請輸入出生年月日'
-    elif birthday
+    #elif birthday
     
 
     con =sqlite3.connect('MISProject_database.db')
