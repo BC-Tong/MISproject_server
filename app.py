@@ -39,11 +39,11 @@ def register_action():
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
     
-    #不管輸入啥都 return 'email重複,請使用另一個email' 明天看
-    #cur.execute(f'SELECT * FROM User_table WHERE `UserMail` = "{email}"')
-    #queryresult = cur.fetchone
-    #if queryresult:
-    #    return 'email重複,請使用另一個email'
+   
+    cur.execute(f'SELECT * FROM User_table WHERE `UserMail` = "{email}"')
+    queryresult = cur.fetchone
+    if queryresult:
+        return 'email重複,請使用另一個email'
     
     #資料好像沒進資料庫 明天看
     cur.execute(f"INSERT INTO User_table (`UserName`, `UserMail`, `UserPassword`, `UserSex`, `UserBirthdate`) VALUES ('{username}','{email}','{password}', '{sex}', '{birthdate}')")
