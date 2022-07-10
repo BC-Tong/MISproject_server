@@ -33,7 +33,6 @@ def register_action():
         return '請輸入性別'
     elif not birthdate:
         return '請輸入出生年月日'
-    #elif birthday
     
 
     con =sqlite3.connect('MISProject_database.db')
