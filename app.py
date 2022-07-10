@@ -39,13 +39,13 @@ def register_action():
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
     
-   
+   '''
     cur.execute(f'SELECT * FROM User_table WHERE `UserMail` = "{email}"')
     queryresult = cur.fetchone
     if queryresult:
         return 'email重複,請使用另一個email'
+    '''
     
-    #資料好像沒進資料庫 明天看
     cur.execute(f"INSERT INTO User_table (`UserName`, `UserMail`, `UserPassword`, `UserSex`, `UserBirthdate`) VALUES ('{username}','{email}','{password}', '{sex}', '{birthdate}')")
     con.commit()
     con.close()
@@ -99,6 +99,17 @@ def register():
         return register_action()
     else:
         return 'wrong method'
+'''
+@app.route('/printusername', methods=['GET', 'POST'])
+def print():
+    if login success:
+        con = sqlite3.connect('MISProject_database.db')
+        cur = con.cursor()
+        querydata = cur.execute(f"SELECT UserName FROM User_table WHERE `UserMail`='"+email+"'")
+        con.close
+        result = querydata.fetchone()
+        return str(result[0]
+'''
 
 @app.route('/test', methods=['GET', 'POST'])
 def test():
