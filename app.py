@@ -122,6 +122,7 @@ def printmenu1():
         return "No1.   " + str(result[0])
     else:
         return "error-menuName not found in db"
+'''
 @app.route('/printmenu2', methods=['GET', 'POST'])
 def printmenu2():
     con = sqlite3.connect('MISProject_database.db')
@@ -133,6 +134,7 @@ def printmenu2():
         return "No2.   " + str(result[1])
     else:
         return "error-menuName not found in db"
+        
 @app.route('/printmenu3', methods=['GET', 'POST'])
 def printmenu1():
     con = sqlite3.connect('MISProject_database.db')
@@ -144,7 +146,8 @@ def printmenu1():
         return "No3.   " + str(result[2])
     else:
         return "error-menuName not found in db"
-    
+'''    
+
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     if(request.method == 'POST'):
