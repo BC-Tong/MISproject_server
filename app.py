@@ -69,6 +69,12 @@ def login_action(email):
     else:
         return "此會員沒有資料"
 
+def print_menuname():
+    con = sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    querydata = cur.execute(f"SELECT MenuName FROM Menu_table")
+    con.close
+    result = querydata.fetchall()
 
 @app.route('/')
 def hello_world():
@@ -113,11 +119,7 @@ def printname():
 
 @app.route('/printmenu1', methods=['GET', 'POST'])
 def printmenu1():
-    con = sqlite3.connect('MISProject_database.db')
-    cur = con.cursor()
-    querydata = cur.execute(f"SELECT MenuName FROM Menu_table")
-    con.close
-    result = querydata.fetchall()
+    result = print_menuname()
     if result:
         return "No1.   " + str(result[0])
     else:
@@ -125,11 +127,7 @@ def printmenu1():
 
 @app.route('/printmenu2', methods=['GET', 'POST'])
 def printmenu2():
-    con = sqlite3.connect('MISProject_database.db')
-    cur = con.cursor()
-    querydata = cur.execute(f"SELECT MenuName FROM Menu_table")
-    con.close
-    result = querydata.fetchall()
+    result = print_menuname()
     if result:
         return "No2.   " + str(result[1])
     else:
@@ -137,11 +135,7 @@ def printmenu2():
         
 @app.route('/printmenu3', methods=['GET', 'POST'])
 def printmenu1():
-    con = sqlite3.connect('MISProject_database.db')
-    cur = con.cursor()
-    querydata = cur.execute(f"SELECT MenuName FROM Menu_table")
-    con.close
-    result = querydata.fetchall()
+    result = print_menuname()
     if result:
         return "No3.   " + str(result[2])
     else:
