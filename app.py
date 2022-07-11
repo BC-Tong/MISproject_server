@@ -134,7 +134,7 @@ def printmenu2():
         return result[1]
     else:
         return "error-menuName not found in db"
-
+'''
 @app.route('/printmenu3', methods=['GET', 'POST'])
 def printmenu1():
     result = print_menuname()
@@ -142,7 +142,7 @@ def printmenu1():
         return result[2]
     else:
         return "error-menuName not found in db"
-
+'''
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     if(request.method == 'POST'):
