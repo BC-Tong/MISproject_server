@@ -111,15 +111,37 @@ def printname():
         return "login error-userName not found in db"
     '''
 
-@app.route('/printmenu', methods=['GET', 'POST'])
-def printmenu():
+@app.route('/printmenu1', methods=['GET', 'POST'])
+def printmenu1():
     con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
     querydata = cur.execute(f"SELECT MenuName FROM Menu_table")
     con.close
     result = querydata.fetchall()
     if result:
-        return '{} {} {}'.format(result[0],result[1],result[2])
+        return "No1.   " + str(result[0])
+    else:
+        return "error-menuName not found in db"
+@app.route('/printmenu2', methods=['GET', 'POST'])
+def printmenu2():
+    con = sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    querydata = cur.execute(f"SELECT MenuName FROM Menu_table")
+    con.close
+    result = querydata.fetchall()
+    if result:
+        return "No2.   " + str(result[1])
+    else:
+        return "error-menuName not found in db"
+@app.route('/printmenu3', methods=['GET', 'POST'])
+def printmenu1():
+    con = sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    querydata = cur.execute(f"SELECT MenuName FROM Menu_table")
+    con.close
+    result = querydata.fetchall()
+    if result:
+        return "No3.   " + str(result[2])
     else:
         return "error-menuName not found in db"
     
