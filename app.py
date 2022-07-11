@@ -115,11 +115,11 @@ def printname():
 def printmenu():
     con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f"SELECT MenuName FROM Menu_table WHERE `MenuID`='1'")
+    querydata = cur.execute(f"SELECT MenuName FROM Menu_table")
     con.close
-    result = querydata.fetchone()
+    result = querydata.fetchall()
     if result:
-        return str(result[0])
+        return '{} {} {}'.format(result[0],result[1],result[2])
     else:
         return "error-menuName not found in db"
     
