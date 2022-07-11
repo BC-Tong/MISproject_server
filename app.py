@@ -122,7 +122,7 @@ def printname():
 def printmenu1():
     result = print_menuname()
     if result:
-        return result[0]
+        return '{} {} {}'.format(result[0],result[1],result[2])
     else:
         return "error-menuName not found in db"
     
@@ -131,7 +131,7 @@ def printmenu1():
 def printmenu2():
     result = print_menuname()
     if result:
-        return result[1]
+        return str(result[1])
     else:
         return "error-menuName not found in db"
 
@@ -139,7 +139,7 @@ def printmenu2():
 def printmenu1():
     result = print_menuname()
     if result:
-        return result[2]
+        return str(result[2])
     else:
         return "error-menuName not found in db"
 '''
