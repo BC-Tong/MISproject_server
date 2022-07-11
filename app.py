@@ -75,6 +75,7 @@ def print_menuname():
     querydata = cur.execute(f"SELECT MenuName FROM Menu_table")
     con.close
     result = querydata.fetchall()
+    return result
 
 @app.route('/')
 def hello_world():
