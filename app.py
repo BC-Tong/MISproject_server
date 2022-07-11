@@ -99,8 +99,16 @@ def register():
     
 @app.route('/printusername', methods=['GET', 'POST'])
 def print():
-    msg = "1"
-    return msg
+    email = request.form['username']
+    con = sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    querydata = cur.execute(f"SELECT UserName FROM User_table WHERE `UserMail`='"+email+"'")
+    con.close
+    result = querydata.fetchone()
+    if result:
+        return str(result[0])
+    else:
+        return "login error-userName not found in db"
 
 @app.route('/test', methods=['GET', 'POST'])
 def test():
@@ -113,47 +121,6 @@ if __name__ == "__main__":
     app.run(host='127.0.0.1', port=5050, debug=True)
 
 '''
-
-def register_action():
-    
-    
-    username = request.form['username']
-    email = request.form['email']
-    password = request.form['password']
-    sex = request.form['sex']
-    birthdate = request.form['birthdate']
-
-    if not username:
-        return '請輸入username'
-    elif not email:
-        return '請輸入email'
-    #elif email.find("@") == -1 or not email.endswith('.com'):
-    #    return 'email格式錯誤'
-    elif not password:
-        return '請輸入password'
-    elif len(password)<4:
-        return '密碼必須大於4碼' 
-    elif not sex:
-        return '請輸入性別'
-    elif not birthdate:
-        return '請輸入出生年月日'
-    
-
-    con =sqlite3.connect('MISProject_database.db')
-    cur = con.cursor()
-    
-   
-    cur.execute(f'SELECT * FROM User_table WHERE `UserMail` = "{email}"')
-    queryresult = cur.fetchone
-    if queryresult:
-        return 'email重複,請使用另一個email'
-    
-    
-    cur.execute(f"INSERT INTO User_table (`UserName`, `UserMail`, `UserPassword`, `UserSex`, `UserBirthdate`) VALUES ('{username}','{email}','{password}', '{sex}', '{birthdate}')")
-    con.commit()
-    con.close()
-    return '註冊成功'
-
 @app.route('/printusername', methods=['GET', 'POST'])
 def print():
     if login success:
