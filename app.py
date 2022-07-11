@@ -96,7 +96,7 @@ def register():
         return 'wrong method'
     
 @app.route('/printusername', methods=['GET', 'POST'])
-def print():
+def printname():
     userName = "1"
     return userName
     '''
@@ -111,6 +111,18 @@ def print():
         return "login error-userName not found in db"
     '''
 
+@app.route('/printmenu', methods=['GET', 'POST'])
+def printmenu():
+    con = sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    querydata = cur.execute(f"SELECT MenuName FROM Menu_table WHERE `MenuID`='1'")
+    con.close
+    result = querydata.fetchone()
+    if result:
+        return str(result[0])
+    else:
+        return "error-menuName not found in db"
+    
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     if(request.method == 'POST'):
