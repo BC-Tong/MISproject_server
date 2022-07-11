@@ -86,9 +86,7 @@ def login():
         else:
             return '查無此會員'
             
-    else:
-        login_check('jack90325@gmail.com', 'jack')
-        return login_action('jack90325@gmail.com')
+    
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -99,7 +97,9 @@ def register():
     
 @app.route('/printusername', methods=['GET', 'POST'])
 def print():
-    email = request.form['username']
+    userName = "1"
+    return userName
+    '''
     con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
     querydata = cur.execute(f"SELECT UserName FROM User_table WHERE `UserMail`='"+email+"'")
@@ -109,6 +109,7 @@ def print():
         return str(result[0])
     else:
         return "login error-userName not found in db"
+    '''
 
 @app.route('/test', methods=['GET', 'POST'])
 def test():
