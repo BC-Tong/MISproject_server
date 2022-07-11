@@ -99,7 +99,8 @@ def register():
     
 @app.route('/printusername', methods=['GET', 'POST'])
 def print():
-    return '1'
+    msg = "1"
+    return msg
 
 @app.route('/test', methods=['GET', 'POST'])
 def test():
