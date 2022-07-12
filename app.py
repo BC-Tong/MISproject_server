@@ -76,7 +76,7 @@ def print_menuname():
     con.close
     result = querydata.fetchall()
     return result
-
+    
 @app.route('/')
 def hello_world():
     print(__name__)
@@ -93,8 +93,6 @@ def login():
         else:
             return '查無此會員'
             
-    
-
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -126,23 +124,14 @@ def printmenu1():
     else:
         return "error-menuName not found in db"
     
-'''
-@app.route('/printmenu2', methods=['GET', 'POST'])
-def printmenu2():
+@app.route('/printhotmenu', methods=['GET', 'POST'])
+def printhot():
     result = print_menuname()
     if result:
-        return str(result[1])
+        return '{} {} {}'.format(result[1],result[2],result[3])
     else:
         return "error-menuName not found in db"
-
-@app.route('/printmenu3', methods=['GET', 'POST'])
-def printmenu1():
-    result = print_menuname()
-    if result:
-        return str(result[2])
-    else:
-        return "error-menuName not found in db"
-'''
+    
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     if(request.method == 'POST'):
