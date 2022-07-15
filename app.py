@@ -126,7 +126,7 @@ def print():
     if request.method == 'POST':
         result = print_menuname()
         if result:
-            return result:
+            return result
         else:
             return "error-menuName not found in db"
 
