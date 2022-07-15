@@ -24,8 +24,8 @@ def register_action():
         return '請輸入email'
     elif not password:
         return '請輸入password'
-    elif len(password)<5:
-        return '密碼必須大於5碼' 
+    #elif len(password)<5:
+    #    return '密碼必須大於5碼' 
     elif not sex:
         return '請輸入password'
     elif not birthdate:
@@ -130,6 +130,21 @@ def print():
     else:
         return "error-menuName not found in db"
 
+@app.route('/printrelaxmenu', methods=['GET', 'POST'])
+    def printrelax():
+        con = sqlite3.connect('MISProject_database.db')
+        cur = con.cursor()
+        querydata = cur.execute(f"SELECT * FROM MenuCategory_table WHERE `CategoryName`='睡前伸展'")
+        con.close
+        result = querydata.fetchone()
+        for row in result:
+            menu1 = row[2]
+            menu2 = row[3]
+            menu3 = row[4]
+            menu4 = row[5]
+            menu5 = row[6]
+        return '{} {} {} {} {}'.format(menu1,menu2,menu3,menu4,menu5)
+        
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     if(request.method == 'POST'):
