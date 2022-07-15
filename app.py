@@ -136,6 +136,8 @@ def print():
         querydata = cur.execute(f"SELECT * FROM MenuCategory_table WHERE `CategoryName`='睡前伸展'")
         con.close
         result = querydata.fetchone()
+        return result[0]
+        '''
         for row in result:
             menu1 = row[2]
             menu2 = row[3]
@@ -143,7 +145,7 @@ def print():
             menu4 = row[5]
             menu5 = row[6]
         return '{} {} {} {} {}'.format(menu1,menu2,menu3,menu4,menu5)
-        
+        '''
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     if(request.method == 'POST'):
