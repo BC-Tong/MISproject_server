@@ -34,12 +34,12 @@ def register_action():
 
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    '''
+    
     cur.execute(f'SELECT * FROM User_table WHERE `UserMail` = "{email}"')
     queryresult = cur.fetchone
     if queryresult:
         return 'email重複,請使用另一個email'
-    '''   
+       
     cur.execute(f"INSERT INTO User_table (`UserName`, `UserMail`, `UserPassword`, `UserSex`, `UserBirthdate`) VALUES ('{username}','{email}','{password}', '{sex}', '{birthdate}')")
     con.commit()
     con.close()
@@ -104,17 +104,7 @@ def register():
 def printname():
     userName = "1"
     return userName
-    '''
-    con = sqlite3.connect('MISProject_database.db')
-    cur = con.cursor()
-    querydata = cur.execute(f"SELECT UserName FROM User_table WHERE `UserMail`='"+email+"'")
-    con.close
-    result = querydata.fetchone()
-    if result:
-        return str(result[0])
-    else:
-        return "login error-userName not found in db"
-    '''
+
 
 @app.route('/printmenu1', methods=['GET', 'POST'])
 def printmenu1():
@@ -132,6 +122,15 @@ def printhot():
     else:
         return "error-menuName not found in db"
     
+@app.route('/printMenuCategory', methods=['GET', 'POST'])
+def print():
+    if request.method == 'POST':
+        result = print_menuname()
+        if result:
+            return result:
+        else:
+            return "error-menuName not found in db"
+    
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     if(request.method == 'POST'):
@@ -141,19 +140,6 @@ def test():
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=5050, debug=True)
-
-'''
-@app.route('/printusername', methods=['GET', 'POST'])
-def print():
-    if login success:
-        con = sqlite3.connect('MISProject_database.db')
-        cur = con.cursor()
-        querydata = cur.execute(f"SELECT UserName FROM User_table WHERE `UserMail`='"+email+"'")
-        con.close
-        result = querydata.fetchone()
-        return str(result[0]
-
-'''
 
 
 
