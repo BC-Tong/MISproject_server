@@ -120,16 +120,15 @@ def printhot():
         return '{} {} {}'.format(result[1],result[2],result[3])
     else:
         return "error-menuName not found in db"
-'''    
-@app.route('/printMenuCategory', methods=['GET', 'POST'])
+  
+@app.route('/printAllMenu', methods=['GET', 'POST'])
 def print():
     result = print_menuname()
     if result:
-        return '{} {} {} {} {} {} {} {} {} {}'.format(result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],result[8],result[9])
-        #return '{} {} {} {} {} {} {} {} {} {} {} {} {} {} {}'.format(result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],result[8],result[9],result[10],result[11],result[12],result[13],result[14])
+        return '{} {} {} {} {} {} {} {} {} {} {} {} {} {} {}'.format(result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],result[8],result[9],result[10],result[11],result[12],result[13],result[14])
     else:
         return "error-menuName not found in db"
-
+'''
 @app.route('/printrelaxmenu', methods=['GET', 'POST'])
     def printrelax():
         con = sqlite3.connect('MISProject_database.db')
