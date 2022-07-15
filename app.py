@@ -120,7 +120,7 @@ def printhot():
         return '{} {} {}'.format(result[1],result[2],result[3])
     else:
         return "error-menuName not found in db"
-'''    
+    
 @app.route('/printMenuCategory', methods=['GET', 'POST'])
 def print():
     if request.method == 'POST':
@@ -129,7 +129,7 @@ def print():
             return result:
         else:
             return "error-menuName not found in db"
-'''
+
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     if(request.method == 'POST'):
