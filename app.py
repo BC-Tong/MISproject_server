@@ -123,12 +123,16 @@ def printhot():
     
 @app.route('/printMenuCategory', methods=['GET', 'POST'])
 def print():
+    userName = "1"
+    return userName
+    '''
     if request.method == 'POST':
         result = print_menuname()
         if result:
             return '{} {} {} {} {}'.format(result[1],result[2],result[3],result[4],result[5])
         else:
             return "error-menuName not found in db"
+    '''
 
 @app.route('/test', methods=['GET', 'POST'])
 def test():
