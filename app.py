@@ -105,7 +105,7 @@ def printname():
     return userName
 
 
-@app.route('/printmenu1', methods=['GET', 'POST'])
+@app.route('/printdomostmenu', methods=['GET', 'POST'])
 def printmenu1():
     result = print_menuname()
     if result:
@@ -123,8 +123,12 @@ def printhot():
     
 @app.route('/printMenuCategory', methods=['GET', 'POST'])
 def print():
-    userName = "1"
-    return userName
+    if request.method == 'POST':
+        result = print_menuname()
+        if result:
+            return result
+        else:
+            return "error-menuName not found in db"
     '''
     if request.method == 'POST':
         result = print_menuname()
