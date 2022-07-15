@@ -31,10 +31,10 @@ def register_action():
     elif not birthdate:
         return '請輸入出生年月日'
     
-    '''
+    
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    
+    '''
     cur.execute(f'SELECT * FROM User_table WHERE `UserMail` = "{email}"')
     queryresult = cur.fetchone
     if queryresult:
