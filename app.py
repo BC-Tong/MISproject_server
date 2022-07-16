@@ -68,13 +68,15 @@ def login_action(email):
     else:
         return "此會員沒有資料"
 
-def print_menuname():
+def print_AllMenuName():
     con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
     querydata = cur.execute(f"SELECT MenuName FROM Menu_table")
     con.close
     result = querydata.fetchall()
     return result
+    
+#def get_Menu()
     
 @app.route('/')
 def hello_world():
@@ -107,7 +109,7 @@ def printname():
 
 @app.route('/printdomostmenu', methods=['GET', 'POST'])
 def printmenu1():
-    result = print_menuname()
+    result = print_AllMenuName()
     if result:
         return '{} {} {}'.format(result[0],result[1],result[2])
     else:
@@ -115,7 +117,7 @@ def printmenu1():
     
 @app.route('/printhotmenu', methods=['GET', 'POST'])
 def printhot():
-    result = print_menuname()
+    result = print_AllMenuName()
     if result:
         return '{} {} {}'.format(result[1],result[2],result[3])
     else:
@@ -123,30 +125,30 @@ def printhot():
   
 @app.route('/printAllMenu', methods=['GET', 'POST'])
 def print():
-    result = print_menuname()
+    result = print_AllMenuName()
     if result:
         return '{} {} {} {} {} {} {} {} {} {} {} {} {} {} {}'.format(result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],result[8],result[9],result[10],result[11],result[12],result[13],result[14])
     else:
         return "error-menuName not found in db"
-'''
+
 @app.route('/printrelaxmenu', methods=['GET', 'POST'])
     def printrelax():
         con = sqlite3.connect('MISProject_database.db')
         cur = con.cursor()
         querydata = cur.execute(f"SELECT * FROM MenuCategory_table WHERE `CategoryName`='睡前伸展'")
         con.close
-        result = querydata.fetchone()
-        return result[0]
+        result = querydata.fetchall()
         
         for row in result:
+            categoryID = row[0]
+            categoryName = row[1]
             menu1 = row[2]
             menu2 = row[3]
             menu3 = row[4]
             menu4 = row[5]
             menu5 = row[6]
-        return '{} {} {} {} {}'.format(menu1,menu2,menu3,menu4,menu5)
+        return '{} {} {} {} {} {} {}'.format(categoryID,categoryName,menu1,menu2,menu3,menu4,menu5)
         
-'''
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     if(request.method == 'POST'):
