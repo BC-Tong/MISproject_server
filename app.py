@@ -132,7 +132,13 @@ def print():
         return "error-menuName not found in db"
 
 @app.route('/printrelaxmenu', methods=['GET', 'POST'])
-    def printrelax():
+def printrelax():
+    result = print_AllMenuName()
+    if result:
+        return '{} {} {} {} {} {} {} {} {} {} {} {} {} {} {}'.format(result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],result[8],result[9],result[10],result[11],result[12],result[13],result[14])
+    else:
+        return "error-menuName not found in db"
+        '''
         con = sqlite3.connect('MISProject_database.db')
         cur = con.cursor()
         querydata = cur.execute(f"SELECT * FROM MenuCategory_table WHERE `CategoryName`='睡前伸展'")
@@ -148,7 +154,7 @@ def print():
             menu4 = row[5]
             menu5 = row[6]
         return '{} {} {} {} {} {} {}'.format(categoryID,categoryName,menu1,menu2,menu3,menu4,menu5)
-        
+        '''
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     if(request.method == 'POST'):
