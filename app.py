@@ -149,7 +149,12 @@ def printrelax():
         menu5 = row[6]
     return '{} {} {} {} {} {} {}'.format(categoryID,categoryName,menu1,menu2,menu3,menu4,menu5)
 '''
-@app.route('/test', methods=['GET', 'POST'])
+@app.route('/testunity', methods=['GET', 'POST'])
+def test():
+    teststr = "1"
+    return teststr
+
+    @app.route('/test', methods=['GET', 'POST'])
 def test():
     if(request.method == 'POST'):
         email = request.form['username']
