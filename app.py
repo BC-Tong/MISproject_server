@@ -156,6 +156,11 @@ def test():
         password = request.form['password']
         return (email)
 
+@app.route('/testunity', methods=['GET', 'POST'])
+def test():
+    teststr = "1"
+    return teststr
+    
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=5050, debug=True)
 
