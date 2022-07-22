@@ -154,7 +154,7 @@ def test():
     teststr = "1"
     return teststr
 
-    @app.route('/test', methods=['GET', 'POST'])
+@app.route('/test', methods=['GET', 'POST'])
 def test():
     if(request.method == 'POST'):
         email = request.form['username']
