@@ -157,7 +157,7 @@ def test():
         return (email)
 
 @app.route('/testunity', methods=['GET', 'POST'])
-def test():
+def testunity():
     teststr = "1"
     return teststr
     
