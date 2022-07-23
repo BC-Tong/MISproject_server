@@ -144,7 +144,7 @@ def insert_rank(new_user_name,new_score):
     cur.execute(f"INSERT INTO Rank_table (`username`, `userrank`) VALUES ('{new_user_name}','{new_score}')")
     con.commit()
     con.close
-    return '1'
+    return "Success"
      
     
 @app.route('/testunity', methods=['GET', 'POST'])
@@ -156,7 +156,7 @@ def testunity():
         #return '{} {}'.format(new_user_name, new_score)
         
         result = insert_rank(new_user_name,new_score)
-        if result == '1':
+        if result == "Success":
             con = sqlite3.connect('MISProject_database.db')
             cur = con.cursor()
             querydata = cur.execute(f"SELECT username,userrank FROM Rank_table")
