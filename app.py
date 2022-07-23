@@ -10,8 +10,6 @@ app = Flask(__name__)
 
 
 def register_action():
-    
-    
     username = request.form['username']
     email = request.form['email']
     password = request.form['password']
@@ -31,15 +29,14 @@ def register_action():
     elif not birthdate:
         return '請輸入出生年月日'
     
-    
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    '''
+    
     cur.execute(f'SELECT * FROM User_table WHERE `UserMail` = "{email}"')
     queryresult = cur.fetchone
     if queryresult:
         return 'email重複,請使用另一個email'
-    '''
+    
     cur.execute(f"INSERT INTO User_table (`UserName`, `UserMail`, `UserPassword`, `UserSex`, `UserBirthdate`) VALUES ('{username}','{email}','{password}', '{sex}', '{birthdate}')")
     con.commit()
     con.close()
@@ -76,13 +73,14 @@ def print_AllMenuName():
     result = querydata.fetchall()
     return result
     
-#def get_Menu()
-    
 @app.route('/')
 def hello_world():
     print(__name__)
     return 'hello!'
 
+@app.route('/user/<username>')
+def show_user_profile(username):
+    return f'User {username}'
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
