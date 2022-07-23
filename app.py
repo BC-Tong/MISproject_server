@@ -144,21 +144,20 @@ def testunity():
         data = request.get_json()
         new_user_name = data['userName']
         new_score = data['score']
-        return '{} {}'.format(new_user_name, new_score)
+        #return '{} {}'.format(new_user_name, new_score)
         
-        '''
         con = sqlite3.connect('MISProject_database.db')
         cur = con.cursor()
         cur.execute(f"INSERT INTO Rank_table (`username`, `userrank`) VALUES ('{new_user_name}','{new_score}')")
         con.commit()
         querydata = cur.execute(f"SELECT username,userrank FROM Rank_table")
         con.close()
-        result = querydata.fetchall()
+        result = querydata.fetchone()
         if result:
-            return '{}'.format(result[0])
+            return "successful insert"
         else:
-            return "failed action"
-        '''
+            return "failed"
+        
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=5050, debug=True)
 
