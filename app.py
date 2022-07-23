@@ -144,7 +144,9 @@ def testunity():
         data = request.get_json()
         new_user_name = data['userName']
         new_score = data['score']
-
+        return '{} {}'.format(new_user_name, new_score)
+        
+        '''
         con = sqlite3.connect('MISProject_database.db')
         cur = con.cursor()
         cur.execute(f"INSERT INTO Rank_table (`username`, `userrank`) VALUES ('{new_user_name}','{new_score}')")
@@ -156,7 +158,7 @@ def testunity():
             return '{}'.format(result[0])
         else:
             return "failed action"
-    
+        '''
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=5050, debug=True)
 
