@@ -138,6 +138,15 @@ def test():
         password = request.form['password']
         return (email)
 
+def insert_rank(new_user_name,new_score):
+    con = sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    cur.execute(f"INSERT INTO Rank_table (`username`, `userrank`) VALUES ('{new_user_name}','{new_score}')")
+    con.commit()
+    con.close
+    return "1"
+     
+    
 @app.route('/testunity', methods=['GET', 'POST'])
 def testunity():
     if(request.method == 'POST'):
@@ -146,17 +155,19 @@ def testunity():
         new_score = data['score']
         #return '{} {}'.format(new_user_name, new_score)
         
-        con = sqlite3.connect('MISProject_database.db')
-        cur = con.cursor()
-        cur.execute(f"INSERT INTO Rank_table (`username`, `userrank`) VALUES ('{new_user_name}','{new_score}')")
-        con.commit()
-        querydata = cur.execute(f"SELECT username,userrank FROM Rank_table")
-        con.close()
-        result = querydata.fetchone()
-        if result:
-            return "successful insert"
+        result = insert_rank(new_user_name,new_score)
+        if (result == 1):
+            con = sqlite3.connect('MISProject_database.db')
+            cur = con.cursor()
+            querydata = cur.execute(f"SELECT username,userrank FROM Rank_table")
+            con.close()
+            result = querydata.fetchone()
+            if result:
+                return "successful insert"
+            else:
+                return "failed get data from DB"
         else:
-            return "failed"
+            return "insert failed"
         
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=5050, debug=True)
