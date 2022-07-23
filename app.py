@@ -1,5 +1,5 @@
-from flask import Flask, request
-import sqlite3, os, sys
+from flask import Flask, request, jsonify
+import sqlite3, os, sys 
 
 os.path.join(__file__, 'MISProject_database.db')
 print(os.path.abspath(os.path.dirname(__file__)))
@@ -130,25 +130,7 @@ def print():
         return '{} {} {} {} {} {} {} {} {} {} {} {} {} {} {}'.format(result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],result[8],result[9],result[10],result[11],result[12],result[13],result[14])
     else:
         return "error-menuName not found in db"
-'''
-@app.route('/printrelaxmenu', methods=['GET', 'POST'])
-def printrelax():   
-    con = sqlite3.connect('MISProject_database.db')
-    cur = con.cursor()
-    querydata = cur.execute(f"SELECT * FROM MenuCategory_table WHERE `CategoryName`='睡前伸展'")
-    con.close
-    result = querydata.fetchall()
-        
-    for row in result:
-        categoryID = row[0]
-        categoryName = row[1]
-        menu1 = row[2]
-        menu2 = row[3]
-        menu3 = row[4]
-        menu4 = row[5]
-        menu5 = row[6]
-    return '{} {} {} {} {} {} {}'.format(categoryID,categoryName,menu1,menu2,menu3,menu4,menu5)
-'''
+
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     if(request.method == 'POST'):
@@ -158,8 +140,22 @@ def test():
 
 @app.route('/testunity', methods=['GET', 'POST'])
 def testunity():
-    teststr = "1"
-    return teststr
+    if(request.method == 'POST'):
+        data = request.get_json()
+        new_user_name = data['userName']
+        new_score = data['score']
+
+        con = sqlite3.connect('MISProject_database.db')
+        cur = con.cursor()
+        cur.execute(f"INSERT INTO Rank_table (`username`, `userrank`) VALUES ('{new_user_name}','{new_score}')")
+        con.commit()
+        querydata = cur.execute(f"SELECT username,userrank FROM Rank_table")
+        con.close()
+        result = querydata.fetchall()
+        if result:
+            return '{}'.format(result[0])
+        else:
+            return "failed action"
     
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=5050, debug=True)
