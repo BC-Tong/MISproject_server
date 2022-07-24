@@ -148,7 +148,7 @@ def printrecord():
     result = querydata.fetchone()
     con.close()
     if result:
-        return result
+        return '{}'.format(result[0])
     else:
         return "error- not found data in db"
     
