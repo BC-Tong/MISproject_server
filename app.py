@@ -140,7 +140,15 @@ def record():
         con.close()
         return "successful insert"
         
-        
+@app.route('/printrecord', methods=['GET', 'POST'])
+def printrecord():
+    con =sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    querydata = cur.execute(f'SELECT * FROM Record_table')
+    con.close()
+    result = querydata.fetchall()
+    return result
+    
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     if(request.method == 'POST'):
