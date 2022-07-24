@@ -147,8 +147,12 @@ def printrecord():
     querydata = cur.execute(f'SELECT user_id,menu_id,score,finish_time FROM Record_table')
     result = querydata.fetchone()
     con.close()
+    
+    menuname = '促進血液循環'
+    menucarl = '100' 
+    
     if result:
-        return '{} {} {} {}'.format(result[0],result[1],result[2],result[3])
+        return '{} {} {} {}'.format(result[3],menuname,menucarl,result[2])
     else:
         return "error- not found data in db"
     
