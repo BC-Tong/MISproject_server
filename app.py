@@ -129,6 +129,13 @@ def print():
     else:
         return "error-menuName not found in db"
 
+@app.route('/record', methods=['GET', 'POST'])
+def record():
+    if(request.method == 'POST'):
+        score = request.form['score']
+        return (score)
+        
+        
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     if(request.method == 'POST'):
