@@ -135,7 +135,7 @@ def record():
         score = request.form['score']
         con =sqlite3.connect('MISProject_database.db')
         cur = con.cursor()
-        cur.execute(f"INSERT INTO Record_table (`user_id`, `menu_id`, `score`, `finish_time`) VALUES( 1,0, '{score}', datetime('now'))")
+        cur.execute(f"INSERT INTO Record_table (`user_id`, `menu_id`, `score`, `finish_time`) VALUES( 1,0, '{score}', datetime('now', 'localtime'))")
         con.commit()
         con.close()
         return "successful insert"
@@ -148,7 +148,7 @@ def printrecord():
     result = querydata.fetchone()
     con.close()
     if result:
-        return '{} {} {} {}'.format(result[0],result[1],result[2],result[3])
+        return '{} {} {} {}'.format(result[3],result[2],result[1],result[2])
     else:
         return "error- not found data in db"
     
