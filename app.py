@@ -133,7 +133,10 @@ def print():
 def record():
     if(request.method == 'POST'):
         score = request.form['score']
-        return (score)
+        cur.execute(f"INSERT INTO Record_table (`user_id`, `menu_id`, `score`, `finish_time`) VALUES( 1, 0, '{score}', datetime('now'))")
+        con.commit()
+        con.close()
+        return "successful insert"
         
         
 @app.route('/test', methods=['GET', 'POST'])
