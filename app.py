@@ -145,8 +145,8 @@ def printrecord():
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
     querydata = cur.execute(f'SELECT user_id,menu_id,score,finish_time FROM Record_table')
-    con.close()
     result = querydata.fetchone()
+    con.close()
     if result:
         return 'DB have data'
     else:
@@ -181,8 +181,8 @@ def testunity():
             con = sqlite3.connect('MISProject_database.db')
             cur = con.cursor()
             querydata = cur.execute(f"SELECT username,userrank FROM Rank_table")
-            con.close()
             selectResult = querydata.fetchone()
+            con.close()
             if selectResult:
                 return "successful insert"
             else:
