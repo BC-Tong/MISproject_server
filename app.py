@@ -144,13 +144,13 @@ def record():
 def printrecord():
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f'SELECT finish_time FROM Record_table')
+    querydata = cur.execute(f'SELECT user_id,menu_id,score,finish_time FROM Record_table')
     con.close()
     result = querydata.fetchone()
     if result:
-        return '{}'.format(result[0])
+        return 'DB have data'
     else:
-        return "error-menuName not found in db"
+        return "error- not found data in db"
     
 @app.route('/test', methods=['GET', 'POST'])
 def test():
