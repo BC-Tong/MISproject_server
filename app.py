@@ -144,7 +144,7 @@ def record():
 def printrecord():
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f'SELECT user_id,menu_id,score,finish_time FROM Record_table')
+    querydata = cur.execute(f'SELECT user_id,menu_id,score,finish_time FROM Record_table WHERE record_id = (SELECT MAX(record_id)  FROM Record_table)')
     result = querydata.fetchone()
     con.close()
     
