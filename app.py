@@ -133,7 +133,9 @@ def print():
 def record():
     if(request.method == 'POST'):
         score = request.form['score']
-        cur.execute(f"INSERT INTO Record_table (`user_id`, `menu_id`, `score`, `finish_time`) VALUES( 1, 0, '{score}', datetime('now'))")
+        con =sqlite3.connect('MISProject_database.db')
+        cur = con.cursor()
+        cur.execute(f"INSERT INTO Record_table (`user_id`, `menu_id`, `score`, `finish_time`) VALUES( 1,0, '{score}', datetime('now'))")
         con.commit()
         con.close()
         return "successful insert"
