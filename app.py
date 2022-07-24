@@ -144,9 +144,9 @@ def record():
 def printrecord():
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f'SELECT * FROM Record_table')
+    querydata = cur.execute(f'SELECT finish_time FROM Record_table')
     con.close()
-    result = querydata.fetchall()
+    result = querydata.fetchone()
     return result
     
 @app.route('/test', methods=['GET', 'POST'])
