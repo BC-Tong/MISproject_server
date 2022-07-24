@@ -133,9 +133,11 @@ def print():
 def record():
     if(request.method == 'POST'):
         score = request.form['score']
+        menuname = request.form['menuname']
+        
         con =sqlite3.connect('MISProject_database.db')
         cur = con.cursor()
-        cur.execute(f"INSERT INTO Record_table (`user_id`, `menu_id`, `score`, `finish_time`) VALUES( 1,0, '{score}', date('now'))")
+        cur.execute(f"INSERT INTO Record_table (`user_id`, `menuname`, `score`, `finish_time`) VALUES( 1,'{menuname}', '{score}', date('now'))")
         con.commit()
         con.close()
         return "successful insert"
@@ -148,11 +150,10 @@ def printrecord():
     result = querydata.fetchone()
     con.close()
     
-    menuname = '促進血液循環'
     menucarl = '100大卡' 
     
     if result:
-        return '{} {} {} {}'.format(result[3],menuname,menucarl,result[2])
+        return '{} {} {} {}'.format(result[3],result[1],menucarl,result[2])
     else:
         return "error- not found data in db"
     
