@@ -135,7 +135,7 @@ def record():
         score = request.form['score']
         con =sqlite3.connect('MISProject_database.db')
         cur = con.cursor()
-        cur.execute(f"INSERT INTO Record_table (`user_id`, `menu_id`, `score`, `finish_time`) VALUES( 1,0, '{score}', datetime('now'))")
+        cur.execute(f"INSERT INTO Record_table (`user_id`, `menu_id`, `score`, `finish_time`) VALUES( 1,0, '{score}', date('now'))")
         con.commit()
         con.close()
         return "successful insert"
@@ -149,7 +149,7 @@ def printrecord():
     con.close()
     
     menuname = '促進血液循環'
-    menucarl = '100' 
+    menucarl = '100大卡' 
     
     if result:
         return '{} {} {} {}'.format(result[3],menuname,menucarl,result[2])
