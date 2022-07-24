@@ -151,7 +151,7 @@ def printrecord():
     
     con.close()
     if result:
-        return '{} {} {} {}'.format(result1[3],'促進血液循環','100',result1[2])
+        return '{} {} {} {}'.format(result1[3],result1[1],result1[0],result1[2])
     else:
         return "error- not found data in db"
     
