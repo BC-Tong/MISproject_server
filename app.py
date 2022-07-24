@@ -147,7 +147,10 @@ def printrecord():
     querydata = cur.execute(f'SELECT finish_time FROM Record_table')
     con.close()
     result = querydata.fetchone()
-    return result
+    if result:
+        return '{}'.format(result[0])
+    else:
+        return "error-menuName not found in db"
     
 @app.route('/test', methods=['GET', 'POST'])
 def test():
