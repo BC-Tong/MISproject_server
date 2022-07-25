@@ -61,8 +61,8 @@ def login_action(email):
     con.close
     result = querydata.fetchone()
     if result:
-        #回傳登入者的user_id
-        return str(result[0])
+        #回傳當前登入者的user_id
+        return result[0]
     else:
         return "此會員沒有資料"
 
