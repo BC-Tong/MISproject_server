@@ -57,11 +57,11 @@ def login_check(email, password):
 def login_action(email):
     con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f"SELECT UserName FROM User_table WHERE `UserMail`='"+email+"'")
+    querydata = cur.execute(f"SELECT UserID FROM User_table WHERE `UserMail`='"+email+"'")
     con.close
     result = querydata.fetchone()
     if result:
-        return "你好" + str(result[0])
+        return "userID:" + str(result[0])
     else:
         return "此會員沒有資料"
 
@@ -77,10 +77,6 @@ def print_AllMenuName():
 def hello_world():
     print(__name__)
     return 'hello!'
-
-@app.route('/user/<username>')
-def show_user_profile(username):
-    return f'User {username}'
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
