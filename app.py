@@ -129,30 +129,33 @@ def print():
 @app.route('/record', methods=['GET', 'POST'])
 def record():
     if(request.method == 'POST'):
+        userid = request.form['userid']
         score = request.form['score']
         menuname = request.form['menuname']
+        menucal = request.form['menucal']
         
         con =sqlite3.connect('MISProject_database.db')
         cur = con.cursor()
-        cur.execute(f"INSERT INTO Record_table (`user_id`, `menuname`, `score`, `finish_time`) VALUES( 1,'{menuname}', '{score}', date('now'))")
+        cur.execute(f"INSERT INTO Record_table (`user_id`, `menuname`,`menucal`, `score`, `finish_time`) VALUES( '{userid}','{menuname}','{menucal}','{score}', date('now'))")
         con.commit()
         con.close()
         return "successful insert"
         
 @app.route('/printrecord', methods=['GET', 'POST'])
 def printrecord():
+    if(request.method == 'POST'):
+        userid = request.form['userid']
+        
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f'SELECT user_id,menuname,score,finish_time FROM Record_table WHERE record_id = (SELECT MAX(record_id)  FROM Record_table)')
+    querydata = cur.execute(f"SELECT user_id,menuname,menucal,score,finish_time FROM Record_table WHERE `user_id`='"+userid+"' AND record_id = (SELECT MAX(record_id)  FROM Record_table)")
     result = querydata.fetchone()
     con.close()
     
-    menucarl = '100大卡' 
-    
     if result:
-        return '{} {} {} {}'.format(result[3],result[1],menucarl,result[2])
+        return '{} {} {} {}'.format(result[4],result[1],result[2],result[3])
     else:
-        return "error- not found data in db"
+        return "DB do not have data"
     
 @app.route('/test', methods=['GET', 'POST'])
 def test():
