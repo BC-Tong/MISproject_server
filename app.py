@@ -32,8 +32,8 @@ def register_action():
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
     
-    emailcheck = cur.execute(f'SELECT * FROM User_table WHERE `UserMail`="{email}"')
-    queryresult = emailcheck.fetchone
+    emailcheck = cur.execute(f"SELECT * FROM User_table WHERE `UserMail`='"+email+"'")
+    queryresult = emailcheck.fetchone()
     if queryresult:
         return 'email重複,請使用另一個email'
     
