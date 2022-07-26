@@ -8,6 +8,10 @@ print(os.path.abspath(os.path.dirname('MISProject_database.db')))
 
 app = Flask(__name__)
 
+@app.route('/')
+def hello_world():
+    print(__name__)
+    return 'hello!'
 
 def register_action():
     username = request.form['username']
@@ -66,19 +70,6 @@ def login_action(email):
     else:
         return "此會員沒有資料"
 
-def print_AllMenuName():
-    con = sqlite3.connect('MISProject_database.db')
-    cur = con.cursor()
-    querydata = cur.execute(f"SELECT MenuName FROM Menu_table")
-    con.close
-    result = querydata.fetchall()
-    return result
-    
-@app.route('/')
-def hello_world():
-    print(__name__)
-    return 'hello!'
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -94,8 +85,17 @@ def register():
     if request.method == 'POST':
         return register_action()
     else:
-        return 'wrong method'
+        return 'wrong method'    
     
+
+def print_AllMenuName():
+    con = sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    querydata = cur.execute(f"SELECT MenuName FROM Menu_table")
+    con.close
+    result = querydata.fetchall()
+    return result
+        
 @app.route('/printusername', methods=['GET', 'POST'])
 def printname():
     userName = "1"
@@ -125,7 +125,7 @@ def print():
         return '{} {} {} {} {} {} {} {} {} {} {} {} {} {} {}'.format(result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],result[8],result[9],result[10],result[11],result[12],result[13],result[14])
     else:
         return "error-menuName not found in db"
-    
+'''下午版本    
 @app.route('/record', methods=['GET', 'POST'])
 def record():
     if(request.method == 'POST'):
@@ -156,23 +156,22 @@ def printrecord():
 '''
 @app.route('/record', methods=['GET', 'POST'])
 def record():
-    if(request.method == 'POST'):
+    if request.method == 'POST':
         userid = request.form['userid']
         score = request.form['score']
         menuname = request.form['menuname']
         menucal = request.form['menucal']  
-        useridt = '2' 
         
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    cur.execute(f"INSERT INTO Record_table (`user_id`, `menuname`,`menucal`, `score`, `finish_time`) VALUES( '{useridt}','{menuname}','{menucal}','{score}', datetime('now'))")
+    cur.execute(f"INSERT INTO Record_table (`user_id`, `menuname`,`menucal`, `score`, `finish_time`) VALUES( '{userid}','{menuname}','{menucal}','{score}', datetime('now'))")
     con.commit()
     con.close()
     return "successful insert"
         
 @app.route('/printrecord', methods=['GET', 'POST'])
 def printrecord():
-    if(request.method == 'POST'):
+    if request.method == 'POST':
         userid = request.form['userid']
         
     con =sqlite3.connect('MISProject_database.db')
@@ -185,7 +184,7 @@ def printrecord():
         return '{} {} {} {}'.format(result[4],result[1],result[2],result[3])
     else:
         return "DB do not have data"
-'''    
+    
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     if(request.method == 'POST'):
