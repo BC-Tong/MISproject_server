@@ -63,7 +63,7 @@ def login_action(email):
     if result:
         #回傳當前登入者的userid,username
         str1 = 'UserID:'
-        str2 = ' Username:'
+        str2 = 'Username:'
         return '{} {} {} {}'.format(str1,result[0],str2,result[1])
     else:
         return "此會員沒有資料"
