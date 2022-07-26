@@ -37,7 +37,7 @@ def register_action():
     if queryresult:
         return 'email重複,請使用另一個email'
     
-    cur.execute(f"INSERT INTO User_table (`UserName`, `UserMail`, `UserPassword`, `UserSex`, `UserBirthdate`) VALUES ('{username}','{email}','{password}', '{sex}', '{birthdate}')")
+    cur.execute(f"INSERT INTO User_table (`UserName`, `UserMail`, `UserPassword`, `UserSex`, `UserBirthdate`,`AccountCreateTime`) VALUES ('{username}','{email}','{password}', '{sex}', '{birthdate}', datetime('now'))")
     con.commit()
     con.close()
     return '註冊成功'
@@ -57,14 +57,12 @@ def login_check(email, password):
 def login_action(email):
     con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f"SELECT UserID,UserName FROM User_table WHERE `UserMail`='"+email+"'")
+    querydata = cur.execute(f"SELECT * FROM User_table WHERE `UserMail`='"+email+"'")
     con.close
     result = querydata.fetchone()
     if result:
-        #回傳當前登入者的userid,username
-        str1 = 'UserID:'
-        str2 = 'Username:'
-        return '{} {} {} {}'.format(str1,result[0],str2,result[1])
+        #回傳當前登入者的基本資料
+        return '{} {} {} {} {} {} {}'.format(result[0],result[1],result[2],result[3],result[4],result[5],result[6])
     else:
         return "此會員沒有資料"
 
