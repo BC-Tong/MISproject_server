@@ -129,14 +129,14 @@ def print():
 @app.route('/record', methods=['GET', 'POST'])
 def record():
     if request.method == 'POST':
-        userid = int(request.form['userid'])
+        #userid = int(request.form['userid'])
         score = int(request.form['score'])
         menuname = request.form['menuname']
-        menucal = request.form['menucal']
+        #menucal = request.form['menucal']
         
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    cur.execute(f"INSERT INTO Record_table (`user_id`, `menuname`,`menucal`, `score`, `finish_time`) VALUES( '{userid}','{menuname}','{menucal}','{score}', datetime('now'))")
+    cur.execute(f"INSERT INTO Record_table (`user_id`, `menuname`,`menucal`, `score`, `finish_time`) VALUES( 2,'{menuname}',100,'{score}', datetime('now'))")
     con.commit()
     con.close()
     return "successful insert"
@@ -148,7 +148,8 @@ def printrecord():
         
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f"SELECT user_id,menuname,menucal,score,finish_time FROM Record_table WHERE `user_id`='"+userid+"' AND record_id = (SELECT MAX(record_id)  FROM Record_table)")
+    querydata = cur.execute(f"SELECT user_id,menuname,menucal,score,finish_time FROM Record_table WHERE record_id = (SELECT MAX(record_id)  FROM Record_table)")
+    #querydata = cur.execute(f"SELECT user_id,menuname,menucal,score,finish_time FROM Record_table WHERE `user_id`='"+userid+"' AND record_id = (SELECT MAX(record_id)  FROM Record_table)")
     result = querydata.fetchone()
     con.close()
     
