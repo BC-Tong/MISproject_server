@@ -57,12 +57,14 @@ def login_check(email, password):
 def login_action(email):
     con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f"SELECT UserName FROM User_table WHERE `UserMail`='"+email+"'")
+    querydata = cur.execute(f"SELECT UserID,UserName FROM User_table WHERE `UserMail`='"+email+"'")
     con.close
     result = querydata.fetchone()
     if result:
-        #回傳當前登入者的username
-        return result[0]
+        #回傳當前登入者的userid,username
+        str1 = 'UserID:'
+        str2 = ' Username:'
+        return '{} {} {} {}'.format(str1,result[0],str2,result[1])
     else:
         return "此會員沒有資料"
 
