@@ -129,14 +129,14 @@ def print():
 @app.route('/record', methods=['GET', 'POST'])
 def record():
     if request.method == 'POST':
-        userid = request.form['userid']
-        score = request.form['score']
+        userid = int(request.form['userid'])
+        score = int(request.form['score'])
         menuname = request.form['menuname']
         menucal = request.form['menucal']
         
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    cur.execute(f"INSERT INTO Record_table (`user_id`, `menuname`,`menucal`, `score`, `finish_time`) VALUES( 2,'{menuname}','{menucal}','{score}', datetime('now'))")
+    cur.execute(f"INSERT INTO Record_table (`user_id`, `menuname`,`menucal`, `score`, `finish_time`) VALUES( '{userid}','{menuname}','{menucal}','{score}', datetime('now'))")
     con.commit()
     con.close()
     return "successful insert"
