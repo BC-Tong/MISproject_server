@@ -94,29 +94,7 @@ def print_AllMenuName():
     querydata = cur.execute(f"SELECT MenuName FROM Menu_table")
     con.close
     result = querydata.fetchall()
-    return result
-        
-@app.route('/printusername', methods=['GET', 'POST'])
-def printname():
-    userName = "1"
-    return userName
-
-
-@app.route('/printdomostmenu', methods=['GET', 'POST'])
-def printmenu1():
-    result = print_AllMenuName()
-    if result:
-        return '{} {} {}'.format(result[0],result[1],result[2])
-    else:
-        return "error-menuName not found in db"
-    
-@app.route('/printhotmenu', methods=['GET', 'POST'])
-def printhot():
-    result = print_AllMenuName()
-    if result:
-        return '{} {} {}'.format(result[1],result[2],result[3])
-    else:
-        return "error-menuName not found in db"
+    return result        
   
 @app.route('/printAllMenu', methods=['GET', 'POST'])
 def print():
@@ -132,11 +110,11 @@ def record():
         #userid = int(request.form['userid'])
         score = int(request.form['score'])
         menuname = request.form['menuname']
-        #menucal = request.form['menucal']
+        menucal = request.form['menucal']
         
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    cur.execute(f"INSERT INTO Record_table (`user_id`, `menuname`,`menucal`, `score`, `finish_time`) VALUES( 2,'{menuname}',100,'{score}', datetime('now'))")
+    cur.execute(f"INSERT INTO Record_table (`user_id`, `menuname`,`menucal`, `score`, `finish_time`) VALUES( 2,'{menuname}','{menucal}','{score}', datetime('now'))")
     con.commit()
     con.close()
     return "successful insert"
