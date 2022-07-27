@@ -125,7 +125,7 @@ def printrecord():
         userid = int(request.form['userid'])
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f"SELECT * FROM ' SELECT * FROM Record_table WHERE `userid`="'+userid+'" ' WHERE record_id = (SELECT MAX(record_id)  FROM Record_table)")
+    querydata = cur.execute(f"SELECT * FROM Record_table ORDER BY finish_time DESC LIMIT 10 ")
     result = querydata.fetchone()
     con.close
     
