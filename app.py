@@ -126,11 +126,11 @@ def printrecord():
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
     querydata = cur.execute(f"SELECT * FROM Record_table ORDER BY finish_time DESC LIMIT 10 ")
-    result = querydata.fetchone()
+    result = querydata.fetchall()
     con.close
     
     if result:
-        return '{} {} {} {} {}'.format(result[1],result[5],result[2],result[3],result[4])
+        return result
     else:
         return "DB do not have data"
 
