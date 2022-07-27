@@ -130,7 +130,7 @@ def printrecord():
     con.close
     
     if result:
-        return result
+        return jsonify(result)
     else:
         return "DB do not have data"
 
