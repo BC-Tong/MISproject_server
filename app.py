@@ -125,12 +125,13 @@ def printrecord():
         userid = int(request.form['userid'])
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f"SELECT * FROM Record_table ORDER BY finish_time DESC LIMIT 10 WHERE `user_id`='"+userid+"' ")
-    result = querydata.fetchall()
+    querydata = cur.execute(f"SELECT * FROM Record_table ORDER BY finish_time DESC LIMIT 10 ")
+    rows = querydata.fetchall()
     con.close
     
-    if result:
-        return jsonify(result)
+    if rows:
+        for result in rows:
+            return '{} {} {} {} {}'.format(result[1],result[5],result[2],result[3],result[4])
     else:
         return "DB do not have data"
 
