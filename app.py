@@ -1,10 +1,8 @@
 from flask import Flask, request, jsonify
 import sqlite3, os, sys 
 
-class Config(object):
-    DEBUG=True
-    JSON_AS_ASCII=False
-    app.config['JSONIFY_MIMETYPE'] ="application/json;charset=utf-8"
+app.config['JSON_AS_ASCII']
+app.config['JSONIFY_MIMETYPE'] ="application/json;charset=utf-8"
 
 os.path.join(__file__, 'MISProject_database.db')
 print(os.path.abspath(os.path.dirname(__file__)))
