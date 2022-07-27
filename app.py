@@ -122,11 +122,11 @@ def record():
 @app.route('/printrecord', methods=['GET', 'POST'])
 def printrecord():
     if request.method == 'POST':
-        userid = request.form['userid']
+        userid = int(request.form['userid'])
         
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f"SELECT user_id,menuname,menucal,score,finish_time FROM Record_table WHERE record_id = (SELECT MAX(record_id)  FROM Record_table)")
+    querydata = cur.execute(f"SELECT user_id,menuname,menucal,score,finish_time FROM Record_table WHERE `user_id`='"+userid+"'")
     
     result = querydata.fetchone()
     con.close()
