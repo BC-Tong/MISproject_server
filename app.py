@@ -135,6 +135,12 @@ def printrecord():
         return '{} {} {} {}'.format(result[4],result[1],result[2],result[3])
     else:
         return "DB do not have data"
+
+@app.route('/scoreupload', methods=['GET', 'POST'])
+def score_upload():
+    if request.method == 'POST':
+        score = request.form['score']
+        return score
     
 @app.route('/test', methods=['GET', 'POST'])
 def test():
