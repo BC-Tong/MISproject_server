@@ -1,6 +1,10 @@
 from flask import Flask, request, jsonify
 import sqlite3, os, sys 
 
+class Config(object):
+    DEBUG=True
+    JSON_AS_ASCII=False
+
 os.path.join(__file__, 'MISProject_database.db')
 print(os.path.abspath(os.path.dirname(__file__)))
 print(os.path.abspath(os.path.dirname('MISProject_database.db')))
@@ -197,8 +201,6 @@ def testunity():
             return "insert failed"
         
 if __name__ == "__main__":
-    app.config['JSON_AS_ASCII'] = False
-    app.config['JSONIFY_MIMETYPE'] = "application/json;charset=utf-8"  
     app.run(host='127.0.0.1', port=5050, debug=True)
 
 
