@@ -126,13 +126,13 @@ def printrecord():
         
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f"SELECT user_id,menuname,menucal,score,finish_time FROM Record_table WHERE `user_id`='"+userid+"'")
+    querydata = cur.execute(f"SELECT * FROM Record_table WHERE `user_id`='"+userid+"'")
     
     result = querydata.fetchone()
     con.close()
     
     if result:
-        return '{} {} {} {} {}'.format(result[0],result[4],result[1],result[2],result[3])
+        return '{} {} {} {} {}'.format(result[1],result[5],result[2],result[3],result[4])
     else:
         return "DB do not have data"
 
