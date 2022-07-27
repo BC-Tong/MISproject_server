@@ -135,6 +135,7 @@ def printrecord():
         for result in rows:
             relist[counter] = '{} {} {} {} {}'.format(result[1],result[5],result[2],result[3],result[4])
             counter++
+        return relist    
     else:
         return "DB do not have data"
 
