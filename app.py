@@ -107,14 +107,14 @@ def print():
 @app.route('/record', methods=['GET', 'POST'])
 def record():
     if request.method == 'POST':
-        #userid = int(request.form['userid'])
+        userid = int(request.form['userid'])
         score = int(request.form['score'])
         menuname = request.form['menuname']
         menucal = request.form['menucal']
         
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    cur.execute(f"INSERT INTO Record_table (`user_id`, `menuname`,`menucal`, `score`, `finish_time`) VALUES( 2,'{menuname}','{menucal}','{score}', datetime('now'))")
+    cur.execute(f"INSERT INTO Record_table (`user_id`, `menuname`,`menucal`, `score`, `finish_time`) VALUES( '{userid}','{menuname}','{menucal}','{score}', datetime('now'))")
     con.commit()
     con.close()
     return "successful insert"
@@ -132,7 +132,7 @@ def printrecord():
     con.close()
     
     if result:
-        return '{} {} {} {}'.format(result[4],result[1],result[2],result[3])
+        return '{} {} {} {} {}'.format(result[0],result[4],result[1],result[2],result[3])
     else:
         return "DB do not have data"
 
