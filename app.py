@@ -205,7 +205,7 @@ def ScoreturntoSkillpoint():
     if request.method == 'POST':
         userid = int(request.form['userid'])
         score = int(request.form['score'])
-    skillpoint = score/200
+    skillpoint = int(score/200)
     return '{} {} {}'.format(userid,score,skillpoint)
     '''
     con =sqlite3.connect('MISProject_database.db')
