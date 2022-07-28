@@ -121,6 +121,44 @@ def insert_record_table(userid,menuname,menucal,score):
     con.close()
     return "Success"
 
+def check_exp_data(userid):
+    con =sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    querydata = cur.execute(f"SELECT exp FROM exp_table WHERE `user_id`='"+userid+"'")
+    result = querydata.fetchone()
+    con.close()
+    if result:
+        return "Have Data"
+    else:
+        return "No Data"
+
+def get_new_exp(userid,score):
+    con =sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    querydata = cur.execute(f"SELECT exp FROM exp_table WHERE `user_id`='"+userid+"'")
+    result = querydata.fetchone()
+    con.close()
+    exp = result[0]
+    new_exp = exp + score
+    return int(new_exp)
+
+def insert_exp_table(userid,username,score):
+    con =sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    cur.execute(f"INSERT INTO exp_table (`user_id`, `username`,`exp`) VALUES( '{userid}','{username}','{score}' )")
+    con.commit()
+    con.close()
+    return "Success"
+
+def update_exp_table(userid,new_exp):
+    con =sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    query = "UPDATE exp_table SET exp=? WHERE user_id=?"
+    cur.execute(query(new_exp,userid))
+    con.commit()
+    con.close()
+    return "Success"
+    
 @app.route('/record', methods=['GET', 'POST'])
 def record():
     if request.method == 'POST':
@@ -129,7 +167,24 @@ def record():
         menuname = request.form['menuname']
         menucal = request.form['menucal']
     result1 = insert_record_table(userid,menuname,menucal,score)
-    result2 = insert_skillpoint_table(userid,score)
+    #result2 = insert_skillpoint_table(userid,score)
+    
+    checkstr = check_exp_data(userid)
+    if checkstr == "Have Data":
+        new_exp = get_new_exp(userid,score)
+        updateResult = update_exp_table(userid,new_exp)
+    elif checkstr == "No Data":
+        insertResult = insert_exp_table(userid,username,score)
+        
+    if result1 =="Success":
+        if updateResult == "Success" or insertResult == "Success":
+            return "Successful insert record & exp"
+        else:
+            return "successful insert record But exp insert failed"
+    else:
+        return "Record insert failed"
+    
+    '''成功顯示skillpoint
     if result1 == "Success" and result2 == "Success":
         con =sqlite3.connect('MISProject_database.db')
         cur = con.cursor()
@@ -142,8 +197,8 @@ def record():
             return "DB do not have data"
     else:
         return "DB insert failed"
-
-'''
+    '''
+'''失敗的-用for迴圈return結果
 @app.route('/printrecord', methods=['GET', 'POST'])
 def printrecord():
     if request.method == 'POST':
