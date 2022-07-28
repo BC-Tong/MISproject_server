@@ -124,7 +124,9 @@ def insert_record_table(userid,menuname,menucal,score):
 def check_exp_data(userid):
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f"SELECT exp FROM exp_table WHERE `user_id`='"+userid+"'")
+    query = "SELECT exp FROM exp_table WHERE user_id=?"
+    querydata = cur.execute(query(userid))
+    #querydata = cur.execute(f"SELECT exp FROM exp_table WHERE `user_id`='"+userid+"'")
     result = querydata.fetchone()
     con.close()
     if result:
@@ -178,7 +180,7 @@ def record():
         insertResult = insert_exp_table(userid,username,score)
     '''    
     if result1 =="Success":
-        return checkstr
+        return str(checkstr)
         #if updateResult == "Success" or insertResult == "Success":
         #    return "Successful insert record & exp"
         #else:
