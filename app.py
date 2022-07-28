@@ -148,7 +148,7 @@ def insert_exp_table(userid,username,score):
     cur.execute(f"INSERT INTO exp_table (`user_id`, `username`,`exp`) VALUES( '{userid}','{username}','{score}' )")
     con.commit()
     con.close()
-    return "Success"
+    return "Success insert"
 
 def update_exp_table(userid,new_exp):
     con =sqlite3.connect('MISProject_database.db')
@@ -156,7 +156,7 @@ def update_exp_table(userid,new_exp):
     querydata = cur.execute(f"UPDATE exp_table SET exp=?,'{new_exp}' WHERE user_id=?,'{userid}'")
     con.commit()
     con.close()
-    return "Success"
+    return "Success update"
     
 @app.route('/record', methods=['GET', 'POST'])
 def record():
@@ -169,7 +169,16 @@ def record():
     #result2 = insert_skillpoint_table(userid,score)
     
     checkstr = check_exp_data(userid)
-    
+    if result1 =="Success":
+        if checkstr == "Have Data":
+            new_exp = get_new_exp(userid,score)
+            updateResult = update_exp_table(userid,new_exp)
+            return str(updateResult)
+        elif checkstr =="No Data":
+            insertResult = insert_exp_table(userid,username,score)
+            return str(insertResult)
+
+    '''未完成的
     if checkstr == "Have Data":
         new_exp = get_new_exp(userid,score)
         updateResult = update_exp_table(userid,new_exp)
@@ -184,6 +193,7 @@ def record():
             return "successful insert record But exp insert failed"
     else:
         return "Record insert failed"
+    '''
     
     '''成功顯示skillpoint
     if result1 == "Success" and result2 == "Success":
@@ -217,24 +227,6 @@ def printrecord():
     else:
         return "DB do not have data"    
     
-'''成功print最後一行 無判斷id      
-@app.route('/printrecord', methods=['GET', 'POST'])
-def printrecord():
-    if request.method == 'POST':
-        userid = int(request.form['userid'])
-        
-    con =sqlite3.connect('MISProject_database.db')
-    cur = con.cursor()
-    querydata = cur.execute(f"SELECT * FROM Record_table WHERE record_id = (SELECT MAX(record_id)  FROM Record_table)")
-    
-    result = querydata.fetchone()
-    con.close()
-    
-    if result:
-        return '{} {} {} {} {}'.format(result[1],result[5],result[2],result[3],result[4])
-    else:
-        return "DB do not have data"
-'''
 @app.route('/scoreupload', methods=['GET', 'POST'])
 def score_upload():
     if request.method == 'POST':
