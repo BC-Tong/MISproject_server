@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 import sqlite3, os, sys
-import math
 
 os.path.join(__file__, 'MISProject_database.db')
 print(os.path.abspath(os.path.dirname(__file__)))
@@ -206,7 +205,7 @@ def ScoreturntoSkillpoint():
     if request.method == 'POST':
         userid = int(request.form['userid'])
         score = int(request.form['score'])
-    skillpoint = round(score/200)
+    skillpoint = score/200
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
     cur.execute(f"INSERT INTO SkillPoint_table (`user_id`, `score`,`skliipoint`,`finish_time`) VALUES( '{userid}','{score}','{skillpoint}',datetime('now'))")
