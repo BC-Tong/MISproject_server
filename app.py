@@ -131,28 +131,18 @@ def record():
     result1 = insert_record_table(userid,menuname,menucal,score)
     result2 = insert_skillpoint_table(userid,score)
     if result1 == "Success" and result2 == "Success":
-        return "successful insert record & skillpoint"
+        con =sqlite3.connect('MISProject_database.db')
+        cur = con.cursor()
+        querydata = cur.execute(f"SELECT * FROM SkillPoint_table ORDER BY recordtime DESC LIMIT 1")
+        result = querydata.fetchone()
+        con.close()
+        if result:
+            return '{} {} {} {} {} {} {} {}'.format("id:",result[0],"score:",result[1],"skillpoint",result[2],"time:",result[3])
+        else:
+            return "DB do not have data"
     else:
         return "DB insert failed"
-    
-''' OK    
-@app.route('/record', methods=['GET', 'POST'])
-def record():
-    if request.method == 'POST':
-        userid = int(request.form['userid'])
-        score = int(request.form['score'])
-        menuname = request.form['menuname']
-        menucal = request.form['menucal']
-        
-    con =sqlite3.connect('MISProject_database.db')
-    cur = con.cursor()
-    cur.execute(f"INSERT INTO Record_table (`user_id`, `menuname`,`menucal`, `score`, `finish_time`) VALUES( '{userid}','{menuname}','{menucal}','{score}', datetime('now'))")
-    con.commit()
-    con.close()
-    return "successful insert"
-'''
 
-    
 '''
 @app.route('/printrecord', methods=['GET', 'POST'])
 def printrecord():
@@ -235,21 +225,6 @@ def testunity():
         else:
             return "insert failed"
 
-@app.route('/ScoreturntoSkillpoint', methods=['GET', 'POST'])
-def ScoreturntoSkillpoint():
-    if request.method == 'POST':
-        userid = int(request.form['userid'])
-        score = int(request.form['score'])
-    #skillpoint = int(score/200)
-    return '{} {}'.format(userid,score)
-    '''
-    con =sqlite3.connect('MISProject_database.db')
-    cur = con.cursor()
-    cur.execute(f"INSERT INTO SkillPoint_table (`user_id`, `score`,`skliipoint`,`finish_time`) VALUES( '{userid}','{score}','{skillpoint}',datetime('now'))")
-    con.commit()
-    con.close()
-    return "successful insert skillpoint"
-    '''    
 @app.route('/getSkillPoint', methods=['GET', 'POST'])
 def getSkillPoint():
     con = sqlite3.connect('MISProject_database.db')
