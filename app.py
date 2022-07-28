@@ -206,13 +206,15 @@ def ScoreturntoSkillpoint():
         userid = int(request.form['userid'])
         score = int(request.form['score'])
     skillpoint = score/200
+    return '{} {} {}'.format(userid,score,skillpoint)
+    '''
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
     cur.execute(f"INSERT INTO SkillPoint_table (`user_id`, `score`,`skliipoint`,`finish_time`) VALUES( '{userid}','{score}','{skillpoint}',datetime('now'))")
     con.commit()
     con.close()
     return "successful insert skillpoint"
-        
+    '''    
 @app.route('/getSkillPoint', methods=['GET', 'POST'])
 def getSkillPoint():
     con = sqlite3.connect('MISProject_database.db')
