@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
-import sqlite3, os, sys 
+import sqlite3, os, sys
+import math
 
 os.path.join(__file__, 'MISProject_database.db')
 print(os.path.abspath(os.path.dirname(__file__)))
@@ -178,7 +179,6 @@ def insert_rank(new_user_name,new_score):
     con.close
     return "Success"
      
-    
 @app.route('/testunity', methods=['GET', 'POST'])
 def testunity():
     if(request.method == 'POST'):
@@ -191,15 +191,40 @@ def testunity():
         if result == "Success":
             con = sqlite3.connect('MISProject_database.db')
             cur = con.cursor()
-            querydata = cur.execute(f"SELECT username,userrank FROM Rank_table")
-            selectResult = querydata.fetchone()
+            querydata = cur.execute(f"SELECT username,userrank FROM Rank_table ORDER BY userrank DESC LIMIT 20")
+            result = querydata.fetchall()
             con.close()
-            if selectResult:
-                return "successful insert"
+            if result:
+                return jsonify(result)
             else:
                 return "failed get data from DB"
         else:
             return "insert failed"
+
+@app.route('/ScoreturntoSkillpoint', methods=['GET', 'POST'])
+def ScoreturntoSkillpoint():
+    if request.method == 'POST':
+        userid = int(request.form['userid'])
+        score = int(request.form['score'])
+    skillpoint = round(score/200)
+    con =sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    cur.execute(f"INSERT INTO SkillPoint_table (`user_id`, `score`,`skliipoint`,`finish_time`) VALUES( '{userid}','{score}','{skillpoint}',datetime('now'))")
+    con.commit()
+    con.close()
+    return "successful insert"
+        
+@app.route('/getSkillPoint', methods=['GET', 'POST'])
+def getSkillPoint():
+    con = sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    querydata = cur.execute(f"SELECT * FROM SkillPoint_table")
+    result = querydata.fetchall()
+    con.close()
+    if result:
+        return jsonify(result)
+    else:
+        return "DB have no data"
         
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=5050, debug=True)
