@@ -172,14 +172,16 @@ def record():
     checkstr = check_exp_data(userid)
     if result1 =="Success":
         if checkstr == "Have Data":
+            #這有錯-明天要完成
             new_exp = get_new_exp(userid,score)
             updateResult = update_exp_table(userid,new_exp)
             return str(updateResult)
         elif checkstr =="No Data":
+            #這OK
             insertResult = insert_exp_table(userid,username,score)
             return str(insertResult)
 
-    '''未完成的
+    '''預期成果
     if checkstr == "Have Data":
         new_exp = get_new_exp(userid,score)
         updateResult = update_exp_table(userid,new_exp)
@@ -251,7 +253,7 @@ def insert_rank(new_user_name,new_score):
      
 @app.route('/testunity', methods=['GET', 'POST'])
 def testunity():
-    if(request.method == 'POST'):
+    if request.method == 'POST':
         data = request.get_json()
         new_user_name = data['userName']
         new_score = data['score']
@@ -271,11 +273,12 @@ def testunity():
         else:
             return "insert failed"
 
-@app.route('/getSkillPoint', methods=['GET', 'POST'])
+#傳username,exp,maxrnak到unity->maxrank怎麼弄 明天完成        
+@app.route('/getuserdata', methods=['GET', 'POST'])
 def getSkillPoint():
     con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f"SELECT * FROM SkillPoint_table")
+    querydata = cur.execute(f"SELECT username,exp,userrank FROM exp_table,Rank_table WHERE ")
     result = querydata.fetchall()
     con.close()
     if result:
