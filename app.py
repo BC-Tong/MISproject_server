@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, json
 import sqlite3, os, sys
 
 os.path.join(__file__, 'MISProject_database.db')
@@ -202,28 +202,25 @@ def record():
     else:
         return "DB insert failed"
     '''
-'''失敗的-用for迴圈return結果
+    
 @app.route('/printrecord', methods=['GET', 'POST'])
 def printrecord():
     if request.method == 'POST':
         userid = int(request.form['userid'])
+        
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f"SELECT * FROM Record_table ORDER BY finish_time DESC LIMIT 10 ")
-    rows = querydata.fetchall()
-    con.close
+    querydata = cur.execute(f"SELECT * FROM Record_table WHERE user_id ='{userid}' ")
     
-    if rows:
-        relist = list()
-        counter = 0
-        for result in rows:
-            relist[counter] = '{} {} {} {} {}'.format(result[1],result[5],result[2],result[3],result[4])
-            counter++
-        return relist    
+    result = querydata.fetchall()
+    con.close()
+    
+    if result:
+        return json.dumps(result, ensure_ascii=False).encode('utf8')
     else:
-        return "DB do not have data"
-'''
-      
+        return "DB do not have data"    
+    
+'''成功print最後一行 無判斷id      
 @app.route('/printrecord', methods=['GET', 'POST'])
 def printrecord():
     if request.method == 'POST':
@@ -240,7 +237,7 @@ def printrecord():
         return '{} {} {} {} {}'.format(result[1],result[5],result[2],result[3],result[4])
     else:
         return "DB do not have data"
-
+'''
 @app.route('/scoreupload', methods=['GET', 'POST'])
 def score_upload():
     if request.method == 'POST':
