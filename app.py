@@ -210,7 +210,7 @@ def printrecord():
         
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f"SELECT * FROM Record_table WHERE user_id ='{userid}' ")
+    querydata = cur.execute(f"SELECT * FROM Record_table WHERE user_id ='{userid}' ORDER BY finish_time DESC LIMIT 10 ")
     
     result = querydata.fetchall()
     con.close()
@@ -275,7 +275,7 @@ def testunity():
             result = querydata.fetchall()
             con.close()
             if result:
-                return jsonify(result)
+                return json.dumps(result, ensure_ascii=False).encode('utf8')
             else:
                 return "failed get data from DB"
         else:
