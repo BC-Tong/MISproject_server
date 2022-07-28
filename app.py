@@ -131,7 +131,6 @@ def record():
     result1 = insert_record_table(userid,menuname,menucal,score)
     result2 = insert_skillpoint_table(userid,score)
     if result1 == "Success" and result2 == "Success":
-    #if result1 =="Success":
         return "successful insert record & skillpoint"
     else:
         return "DB insert failed"
@@ -264,6 +263,7 @@ def getSkillPoint():
         return "DB have no data"
         
 if __name__ == "__main__":
+    app.config['JSON_AS_ASCII'] = False
     app.run(host='127.0.0.1', port=5050, debug=True)
 
 
