@@ -129,9 +129,9 @@ def record():
         menuname = request.form['menuname']
         menucal = request.form['menucal']
     result1 = insert_record_table(userid,menuname,menucal,score)
-    result2 = insert_skillpoint_table(userid,score)
-    if result1 == "Success" && result2 == "Success":
-    #if result1 =="Success":
+    #result2 = insert_skillpoint_table(userid,score)
+    #if result1 == "Success" && result2 == "Success":
+    if result1 =="Success":
         return "successful insert record & skillpoint"
     else:
         return "DB insert failed"
