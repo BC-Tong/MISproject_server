@@ -118,7 +118,7 @@ def record():
     con.commit()
     con.close()
     return "successful insert"
-
+'''
 @app.route('/printrecord', methods=['GET', 'POST'])
 def printrecord():
     if request.method == 'POST':
@@ -138,8 +138,8 @@ def printrecord():
         return relist    
     else:
         return "DB do not have data"
-
-'''ok 但無法判斷userid        
+'''
+      
 @app.route('/printrecord', methods=['GET', 'POST'])
 def printrecord():
     if request.method == 'POST':
@@ -156,7 +156,7 @@ def printrecord():
         return '{} {} {} {} {}'.format(result[1],result[5],result[2],result[3],result[4])
     else:
         return "DB do not have data"
-'''
+
 @app.route('/scoreupload', methods=['GET', 'POST'])
 def score_upload():
     if request.method == 'POST':
