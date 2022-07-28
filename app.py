@@ -104,6 +104,38 @@ def print():
     else:
         return "error-menuName not found in db"
 
+def insert_skillpoint_table(user_id,score):
+    skillpoint = score/200
+    con = sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    cur.execute(f"INSERT INTO SkillPoint_table (`user_id`, `score`, `skillpoint`, `recordtime`) VALUES ('{user_id}','{score}','{skillpoint}',datetime('now'))")
+    con.commit()
+    con.close
+    return "Success"
+
+def insert_record_table(user_id,menuname,menucal,score):
+    con =sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    cur.execute(f"INSERT INTO Record_table (`user_id`, `menuname`,`menucal`, `score`, `finish_time`) VALUES( '{userid}','{menuname}','{menucal}','{score}', datetime('now'))")
+    con.commit()
+    con.close()
+    return "Success"
+
+@app.route('/record', methods=['GET', 'POST'])
+def record():
+    if request.method == 'POST':
+        userid = int(request.form['userid'])
+        score = int(request.form['score'])
+        menuname = request.form['menuname']
+        menucal = request.form['menucal']
+    result1 = insert_record_table(user_id,menuname,menucal,score)
+    result2 = insert_skillpoint_table(user_id,score)
+    if result1 == "Success" && result2 == "Success":
+        return "successful insert record & skillpoint"
+    else:
+        return "DB insert failed"
+    
+''' OK    
 @app.route('/record', methods=['GET', 'POST'])
 def record():
     if request.method == 'POST':
@@ -118,6 +150,9 @@ def record():
     con.commit()
     con.close()
     return "successful insert"
+'''
+
+    
 '''
 @app.route('/printrecord', methods=['GET', 'POST'])
 def printrecord():
