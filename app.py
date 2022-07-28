@@ -169,19 +169,19 @@ def record():
     #result2 = insert_skillpoint_table(userid,score)
     
     checkstr = check_exp_data(userid)
-    '''
+    
     if checkstr == "Have Data":
         new_exp = get_new_exp(userid,score)
         updateResult = update_exp_table(userid,new_exp)
     elif checkstr == "No Data":
         insertResult = insert_exp_table(userid,username,score)
-    '''    
+        
     if result1 =="Success":
         return str(checkstr)
-        #if updateResult == "Success" or insertResult == "Success":
-        #    return "Successful insert record & exp"
-        #else:
-        #    return "successful insert record But exp insert failed"
+        if updateResult == "Success" or insertResult == "Success":
+            return "Successful insert record & exp"
+        else:
+            return "successful insert record But exp insert failed"
     else:
         return "Record insert failed"
     
