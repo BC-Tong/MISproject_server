@@ -162,6 +162,7 @@ def update_exp_table(userid,new_exp):
 def record():
     if request.method == 'POST':
         userid = int(request.form['userid'])
+        username = request.form['username']
         score = int(request.form['score'])
         menuname = request.form['menuname']
         menucal = request.form['menucal']
