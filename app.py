@@ -212,7 +212,7 @@ def ScoreturntoSkillpoint():
     cur.execute(f"INSERT INTO SkillPoint_table (`user_id`, `score`,`skliipoint`,`finish_time`) VALUES( '{userid}','{score}','{skillpoint}',datetime('now'))")
     con.commit()
     con.close()
-    return '{} {}'.format("successful insert skillpoint:",skillpoint)
+    return "successful insert skillpoint"
         
 @app.route('/getSkillPoint', methods=['GET', 'POST'])
 def getSkillPoint():
