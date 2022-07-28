@@ -124,9 +124,7 @@ def insert_record_table(userid,menuname,menucal,score):
 def check_exp_data(userid):
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    query = "SELECT exp FROM exp_table WHERE user_id=?"
-    querydata = cur.execute(query(userid))
-    #querydata = cur.execute(f"SELECT exp FROM exp_table WHERE `user_id`='"+userid+"'")
+    querydata = cur.execute(f"SELECT * FROM exp_table WHERE `user_id`='{userid}' ")
     result = querydata.fetchone()
     con.close()
     if result:
@@ -137,7 +135,7 @@ def check_exp_data(userid):
 def get_new_exp(userid,score):
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f"SELECT exp FROM exp_table WHERE `user_id`='"+userid+"'")
+    querydata = cur.execute(f"SELECT exp FROM exp_table WHERE `user_id`='{userid}'")
     result = querydata.fetchone()
     con.close()
     exp = result[0]
@@ -155,8 +153,7 @@ def insert_exp_table(userid,username,score):
 def update_exp_table(userid,new_exp):
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    query = "UPDATE exp_table SET exp=? WHERE user_id=?"
-    cur.execute(query(new_exp,userid))
+    querydata = cur.execute(f"UPDATE exp_table SET exp=?,'{new_exp}' WHERE user_id=?,'{userid}'")
     con.commit()
     con.close()
     return "Success"
