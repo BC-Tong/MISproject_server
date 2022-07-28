@@ -130,7 +130,7 @@ def record():
         menucal = request.form['menucal']
     result1 = insert_record_table(userid,menuname,menucal,score)
     result2 = insert_skillpoint_table(userid,score)
-    if result1 == "Success" AND result2 == "Success":
+    if result1 == "Success" and result2 == "Success":
     #if result1 =="Success":
         return "successful insert record & skillpoint"
     else:
