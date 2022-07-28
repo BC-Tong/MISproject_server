@@ -104,16 +104,16 @@ def print():
     else:
         return "error-menuName not found in db"
 
-def insert_skillpoint_table(user_id,score):
+def insert_skillpoint_table(userid,score):
     skillpoint = score/200
     con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    cur.execute(f"INSERT INTO SkillPoint_table (`user_id`, `score`, `skillpoint`, `recordtime`) VALUES ('{user_id}','{score}','{skillpoint}',datetime('now'))")
+    cur.execute(f"INSERT INTO SkillPoint_table (`user_id`, `score`, `skillpoint`, `recordtime`) VALUES ('{userid}','{score}','{skillpoint}',datetime('now'))")
     con.commit()
     con.close
     return "Success"
 
-def insert_record_table(user_id,menuname,menucal,score):
+def insert_record_table(userid,menuname,menucal,score):
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
     cur.execute(f"INSERT INTO Record_table (`user_id`, `menuname`,`menucal`, `score`, `finish_time`) VALUES( '{userid}','{menuname}','{menucal}','{score}', datetime('now'))")
@@ -128,9 +128,10 @@ def record():
         score = int(request.form['score'])
         menuname = request.form['menuname']
         menucal = request.form['menucal']
-    result1 = insert_record_table(user_id,menuname,menucal,score)
-    result2 = insert_skillpoint_table(user_id,score)
+    result1 = insert_record_table(userid,menuname,menucal,score)
+    result2 = insert_skillpoint_table(userid,score)
     if result1 == "Success" && result2 == "Success":
+    #if result1 =="Success":
         return "successful insert record & skillpoint"
     else:
         return "DB insert failed"
