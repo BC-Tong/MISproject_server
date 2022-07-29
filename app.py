@@ -105,7 +105,7 @@ def getcurrentusername():
     else:
         return "session failed"
 '''
-global currentUsername
+currentUsername = ""
 
 def modify(username):
     global currentUsername
