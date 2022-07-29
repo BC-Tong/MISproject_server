@@ -94,6 +94,10 @@ def currentuser():
         username = request.form['username']
         currentUsername = username
         return str(currentUsername)
+    
+@app.route('/getcurrentuser',methods=['GET',['POST'])
+def getcurrentuser():
+    return str(currentUsername)
 
 def print_AllMenuName():
     con = sqlite3.connect('MISProject_database.db')
