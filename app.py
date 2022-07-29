@@ -153,7 +153,7 @@ def insert_exp_table(userid,username,score):
 def update_exp_table(userid,new_exp):
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f"UPDATE exp_table SET exp=?,'{new_exp}' WHERE user_id=?,'{userid}'")
+    querydata = cur.execute(f"UPDATE exp_table SET `exp`='{new_exp}' WHERE `user_id`='{userid}' ")
     con.commit()
     con.close()
     return "Success update"
@@ -172,13 +172,10 @@ def record():
     checkstr = check_exp_data(userid)
     if result1 =="Success":
         if checkstr == "Have Data":
-            #這有錯-明天要完成
             new_exp = get_new_exp(userid,score)
-            return str(new_exp)
-            #updateResult = update_exp_table(userid,new_exp)
-            #return str(updateResult)
+            updateResult = update_exp_table(userid,new_exp)
+            return str(updateResult)
         elif checkstr =="No Data":
-            #這OK
             insertResult = insert_exp_table(userid,username,score)
             return str(insertResult)
 
