@@ -177,7 +177,7 @@ def record():
         insertResult = insert_exp_table(userid,username,score)
         
     if result1 =="Success":
-        if updateResult == "Success update" or insertResult == "Success insert":
+        if updateResult == "Success update" OR insertResult == "Success insert":
             return "Successful insert record & insert new_exp"
         else:
             return "successful insert record But exp insert failed"
