@@ -5,7 +5,7 @@ os.path.join(__file__, 'MISProject_database.db')
 print(os.path.abspath(os.path.dirname(__file__)))
 print(os.path.abspath(os.path.dirname('MISProject_database.db')))
 
-global currentUsername = ""
+currentUsername = ""
 
 app = Flask(__name__)
 
@@ -89,6 +89,7 @@ def register():
         return 'wrong method'    
 
 def modify(username):
+    global currentUsername
     currentUsername = username
     return str(currentUsername)
     
@@ -100,6 +101,7 @@ def currentuser():
     
 @app.route('/getcurrentuser',methods=['GET',['POST'])
 def getcurrentuser():
+    global currentUsername
     return str(currentUsername)
 
 def print_AllMenuName():
