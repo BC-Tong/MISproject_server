@@ -227,11 +227,13 @@ def printrecord():
     con.close()
     
     if result:
+        '''
         for i in len(result):
             for row in result:
                 array1[i] = '{} {} {} {} {} {}'.format(row[0],row[1],row[2],row[3],row[4],row[5])
-        return array1        
-        #return json.dumps(result, ensure_ascii=False).encode('utf8')
+        return array1 
+        '''
+        return json.dumps(result, ensure_ascii=False).encode('utf8')
     else:
         return "DB do not have data"    
     
