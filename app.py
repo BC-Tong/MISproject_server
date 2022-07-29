@@ -100,8 +100,8 @@ def recordsession():
 @app.route('/getcurrentuser')
 def getcurrentusername():
     if 'username' in session:
-        s = session['username']
-        return str(s)
+        username = session.get('username')
+        return str(username)
     else:
         return "session failed"
     
