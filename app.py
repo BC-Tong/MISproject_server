@@ -227,7 +227,8 @@ def printrecord():
     con.close()
     
     if result:
-        return json.dumps(result, ensure_ascii=False).encode('utf8')
+        return result
+        #return json.dumps(result, ensure_ascii=False).encode('utf8')
     else:
         return "DB do not have data"    
     
