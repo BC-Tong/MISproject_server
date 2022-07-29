@@ -227,6 +227,7 @@ def printrecord():
     con.close()
     
     if result:
+        '''
         for i in len(querydata.fetchall()):
             for row in result:
                 array1[i][0] = row[5]
@@ -234,7 +235,8 @@ def printrecord():
                 array1[i][2] = row[3]
                 array1[i][3] = row[4]
         return array1 
-        #return json.dumps(result, ensure_ascii=False).encode('utf8')
+        '''
+        return json.dumps(result, ensure_ascii=False).encode('utf8')
     else:
         return "DB do not have data"    
     
@@ -243,8 +245,6 @@ def score_upload():
     if request.method == 'POST':
         score = request.form['score']
         return str(score)
-    return str(score)
-    
     
 @app.route('/test', methods=['GET', 'POST'])
 def test():
