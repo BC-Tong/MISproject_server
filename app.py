@@ -174,8 +174,9 @@ def record():
         if checkstr == "Have Data":
             #這有錯-明天要完成
             new_exp = get_new_exp(userid,score)
-            updateResult = update_exp_table(userid,new_exp)
-            return str(updateResult)
+            return str(new_exp)
+            #updateResult = update_exp_table(userid,new_exp)
+            #return str(updateResult)
         elif checkstr =="No Data":
             #這OK
             insertResult = insert_exp_table(userid,username,score)
