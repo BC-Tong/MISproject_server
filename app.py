@@ -5,14 +5,15 @@ os.path.join(__file__, 'MISProject_database.db')
 print(os.path.abspath(os.path.dirname(__file__)))
 print(os.path.abspath(os.path.dirname('MISProject_database.db')))
 
+global currentUsername
 
 app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
     print(__name__)
-    return 'hello!'
-
+    return 'hello!'        
+        
 def register_action():
     username = request.form['username']
     email = request.form['email']
@@ -86,7 +87,13 @@ def register():
         return register_action()
     else:
         return 'wrong method'    
-    
+
+@app.route('/currentuser', methods=['GET', 'POST'])
+def currentuser():
+    if request.method == 'POST':
+        username = request.form['username']
+        currentUsername = username
+        return str(currentUsername)
 
 def print_AllMenuName():
     con = sqlite3.connect('MISProject_database.db')
@@ -186,15 +193,6 @@ def record():
                 return "insert exp failed"
     else:
         return "insert record failed"
-    '''    
-    if result1 =="Success":
-        if updateResult == "Success update" or insertResult == "Success insert":
-            return "Successful insert record & insert new_exp"
-        else:
-            return "successful insert record But exp insert failed"
-    else:
-        return "Record insert failed"
-    '''    
     
     '''成功顯示skillpoint
     if result1 == "Success" and result2 == "Success":
@@ -255,7 +253,6 @@ def testunity():
         data = request.get_json()
         new_user_name = data['userName']
         new_score = data['score']
-        #return '{} {}'.format(new_user_name, new_score)
         
         result = insert_rank(new_user_name,new_score)
         if result == "Success":
@@ -271,16 +268,16 @@ def testunity():
         else:
             return "insert failed"
 
-#傳username,exp,maxrnak到unity->maxrank怎麼弄 明天完成        
+#傳username,exp,maxrnak到unity        
 @app.route('/getuserdata', methods=['GET', 'POST'])
 def getSkillPoint():
     con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f"SELECT username,exp,userrank FROM exp_table,Rank_table WHERE ")
-    result = querydata.fetchall()
+    querydata = cur.execute(f"SELECT username,exp,MAX(userrank) FROM exp_table JOIN Rank_table ON `username`='{username}' ")
+    result = querydata.fetchone()
     con.close()
     if result:
-        return jsonify(result)
+        return json.dumps(result, ensure_ascii=False).encode('utf8')
     else:
         return "DB have no data"
         
