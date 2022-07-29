@@ -89,7 +89,7 @@ def register():
         return 'wrong method'    
 
 def modify(username):
-    global currentUsername = username
+    currentUsername = username
     return str(currentUsername)
     
 @app.route('/currentuser', methods=['GET', 'POST'])
@@ -97,11 +97,10 @@ def currentuser():
     if request.method == 'POST':
         username = request.form['username']
         return modify(username)
-'''    
+    
 @app.route('/getcurrentuser',methods=['GET',['POST'])
 def getcurrentuser():
     return str(currentUsername)
-'''
 
 def print_AllMenuName():
     con = sqlite3.connect('MISProject_database.db')
