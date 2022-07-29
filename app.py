@@ -89,7 +89,7 @@ def register():
         return register_action()
     else:
         return 'wrong method'    
-
+'''
 @app.route('/recordusername',methods=['GET','POST'])
 def recordsession():
     if request.method == 'POST':
@@ -104,8 +104,9 @@ def getcurrentusername():
         return str(username)
     else:
         return "session failed"
-    
-'''失敗
+'''
+global currentUsername
+
 def modify(username):
     global currentUsername
     currentUsername = username
@@ -121,7 +122,7 @@ def currentuser():
 def getcurrentuser():
     global currentUsername
     return str(currentUsername)
-'''
+
 def print_AllMenuName():
     con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
