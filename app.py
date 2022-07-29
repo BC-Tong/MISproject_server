@@ -170,16 +170,6 @@ def record():
     #result2 = insert_skillpoint_table(userid,score)
     
     checkstr = check_exp_data(userid)
-    if result1 =="Success":
-        if checkstr == "Have Data":
-            new_exp = get_new_exp(userid,score)
-            updateResult = update_exp_table(userid,new_exp)
-            return str(updateResult)
-        elif checkstr =="No Data":
-            insertResult = insert_exp_table(userid,username,score)
-            return str(insertResult)
-
-    '''預期成果
     if checkstr == "Have Data":
         new_exp = get_new_exp(userid,score)
         updateResult = update_exp_table(userid,new_exp)
@@ -187,14 +177,12 @@ def record():
         insertResult = insert_exp_table(userid,username,score)
         
     if result1 =="Success":
-        return str(checkstr)
-        if updateResult == "Success" or insertResult == "Success":
-            return "Successful insert record & exp"
+        if updateResult == "Success update" or insertResult == "Success insert":
+            return "Successful insert record & insert new_exp"
         else:
             return "successful insert record But exp insert failed"
     else:
         return "Record insert failed"
-    '''
     
     '''成功顯示skillpoint
     if result1 == "Success" and result2 == "Success":
