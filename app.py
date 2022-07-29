@@ -8,8 +8,6 @@ print(os.path.abspath(os.path.dirname('MISProject_database.db')))
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = os.urandom(24)
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=31)
 
 @app.route('/')
 def hello_world():
@@ -89,13 +87,16 @@ def register():
         return register_action()
     else:
         return 'wrong method'    
-'''
-@app.route('/recordusername',methods=['GET','POST'])
+
+@app.route('/currentuser',methods=['GET','POST'])
 def recordsession():
     if request.method == 'POST':
         username = request.form['username']
     session['username'] = username
-    return "sussess session"
+    if 'username' in session:
+        return "sussess session"
+    else:
+        return "session failed"
     
 @app.route('/getcurrentuser')
 def getcurrentusername():
@@ -104,6 +105,7 @@ def getcurrentusername():
         return str(username)
     else:
         return "session failed"
+
 '''
 currentUsername = "test"
 
@@ -117,7 +119,7 @@ def currentuser():
     if request.method == 'POST':
         username = request.form['username']
         return modify(username)
-'''    
+    
 @app.route('/getcurrentuser',methods=['GET',['POST'])
 def getcurrentuser():
     global currentUsername
@@ -138,15 +140,6 @@ def print():
         return '{} {} {} {} {} {} {} {} {} {} {} {} {} {} {}'.format(result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],result[8],result[9],result[10],result[11],result[12],result[13],result[14])
     else:
         return "error-menuName not found in db"
-
-def insert_skillpoint_table(userid,score):
-    skillpoint = int(score/200)
-    con = sqlite3.connect('MISProject_database.db')
-    cur = con.cursor()
-    cur.execute(f"INSERT INTO SkillPoint_table (`user_id`, `score`, `skillpoint`, `recordtime`) VALUES ('{userid}','{score}','{skillpoint}',datetime('now'))")
-    con.commit()
-    con.close
-    return "Success"
 
 def insert_record_table(userid,menuname,menucal,score):
     con =sqlite3.connect('MISProject_database.db')
@@ -202,7 +195,6 @@ def record():
         menuname = request.form['menuname']
         menucal = request.form['menucal']
     result1 = insert_record_table(userid,menuname,menucal,score)
-    #result2 = insert_skillpoint_table(userid,score)
     
     checkstr = check_exp_data(userid)
     if result1 == "Success":
@@ -221,21 +213,6 @@ def record():
                 return "insert exp failed"
     else:
         return "insert record failed"
-    
-    '''成功顯示skillpoint
-    if result1 == "Success" and result2 == "Success":
-        con =sqlite3.connect('MISProject_database.db')
-        cur = con.cursor()
-        querydata = cur.execute(f"SELECT * FROM SkillPoint_table ORDER BY recordtime DESC LIMIT 1")
-        result = querydata.fetchone()
-        con.close()
-        if result:
-            return '{} {} {} {} {} {} {} {}'.format("id:",result[0],"score:",result[1],"skillpoint",result[2],"time:",result[3])
-        else:
-            return "DB do not have data"
-    else:
-        return "DB insert failed"
-    '''
     
 @app.route('/printrecord', methods=['GET', 'POST'])
 def printrecord():
@@ -311,6 +288,9 @@ def getSkillPoint():
         
 if __name__ == "__main__":
     app.config['JSON_AS_ASCII'] = False
+    
+    app.config['SECRET_KEY'] = os.urandom(24)
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=31)
     app.run(host='127.0.0.1', port=5050, debug=True)
 
 
