@@ -144,7 +144,7 @@ def print():
 def insert_record_table(userid,menuname,menucal,score):
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    cur.execute(f"INSERT INTO Record_table (`user_id`, `menuname`,`menucal`, `score`, `finish_time`) VALUES( '{userid}','{menuname}','{menucal}','{score}', datetime('now'))")
+    cur.execute(f"INSERT INTO Record_table (`user_id`, `menuname`,`menucal`, `score`, `finish_time`) VALUES( '{userid}','{menuname}','{menucal}','{score}', date('now'))")
     con.commit()
     con.close()
     return "Success"
@@ -227,10 +227,13 @@ def printrecord():
     con.close()
     
     if result:
-        for row in result:
-            array1[i] = '{} {} {} {} {} {}'.format(row[0],row[1],row[2],row[3],row[4],row[5])
+        for i in len(querydata.fetchall()):
+            for row in result:
+                array1[i][0] = row[5]
+                array1[i][1] = row[2]
+                array1[i][2] = row[3]
+                array1[i][3] = row[4]
         return array1 
-        
         #return json.dumps(result, ensure_ascii=False).encode('utf8')
     else:
         return "DB do not have data"    
