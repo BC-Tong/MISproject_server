@@ -5,7 +5,7 @@ os.path.join(__file__, 'MISProject_database.db')
 print(os.path.abspath(os.path.dirname(__file__)))
 print(os.path.abspath(os.path.dirname('MISProject_database.db')))
 
-global currentUsername
+global currentUsername = ""
 
 app = Flask(__name__)
 
@@ -88,12 +88,15 @@ def register():
     else:
         return 'wrong method'    
 
+def modify(username):
+    global currentUsername = username
+    return str(currentUsername)
+    
 @app.route('/currentuser', methods=['GET', 'POST'])
 def currentuser():
     if request.method == 'POST':
         username = request.form['username']
-        currentUsername = username
-        return str(currentUsername)
+        return modify(username)
 '''    
 @app.route('/getcurrentuser',methods=['GET',['POST'])
 def getcurrentuser():
