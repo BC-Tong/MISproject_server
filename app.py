@@ -95,6 +95,7 @@ def recordsession():
     if request.method == 'POST':
         username = request.form['username']
     session['username'] = username
+    return "sussess session"
     
 @app.route('/getcurrentuser')
 def getcurrentusername():
