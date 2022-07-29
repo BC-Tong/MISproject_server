@@ -99,8 +99,11 @@ def recordsession():
     
 @app.route('/getcurrentuser')
 def getcurrentusername():
-    s = session['username']
-    return str(s)
+    if 'username' in session:
+        s = session['username']
+        return str(s)
+    else:
+        return "session failed"
     
 '''失敗
 def modify(username):
