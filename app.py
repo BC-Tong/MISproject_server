@@ -243,6 +243,8 @@ def score_upload():
     if request.method == 'POST':
         score = request.form['score']
         return str(score)
+    return str(score)
+    
     
 @app.route('/test', methods=['GET', 'POST'])
 def test():
