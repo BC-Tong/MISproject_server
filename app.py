@@ -1,13 +1,15 @@
-from flask import Flask, request, jsonify, json
+from flask import Flask, request, jsonify, json, session
+from datetime import timedelta
 import sqlite3, os, sys
 
 os.path.join(__file__, 'MISProject_database.db')
 print(os.path.abspath(os.path.dirname(__file__)))
 print(os.path.abspath(os.path.dirname('MISProject_database.db')))
 
-currentUsername = ""
-
 app = Flask(__name__)
+
+app.config['SECRET_KEY'] = os.urandom(24)
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=31)
 
 @app.route('/')
 def hello_world():
@@ -88,6 +90,18 @@ def register():
     else:
         return 'wrong method'    
 
+@app.route('/recordusername',methods=['GET','POST'])
+def recordsession():
+    if request.method == 'POST':
+        username = request.form['username']
+    session['username'] = username
+    
+@app.route('/getcurrentuser')
+def getcurrentusername():
+    s = session['username']
+    return str(s)
+    
+'''失敗
 def modify(username):
     global currentUsername
     currentUsername = username
@@ -103,7 +117,7 @@ def currentuser():
 def getcurrentuser():
     global currentUsername
     return str(currentUsername)
-
+'''
 def print_AllMenuName():
     con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
