@@ -227,8 +227,7 @@ def record():
         elif checkstr == "No Data":
             insertResult = insert_exp_table(userid,username,score)
             if insertResult == "Success insert":
-                new_exp = get_new_exp(userid,score)
-                return '{} {}'.format("Successful insert record & exp ->",new_exp)
+                return '{} {}'.format("Successful insert record & exp ->",score)
             else:
                 return "insert exp failed"
     else:
