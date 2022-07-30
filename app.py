@@ -2,6 +2,7 @@
 from flask import Flask, request, jsonify, json, session
 from datetime import timedelta
 import sqlite3, os, sys
+from pandas import DataFrame
 
 os.path.join(__file__, 'MISProject_database.db')
 print(os.path.abspath(os.path.dirname(__file__)))
@@ -244,10 +245,12 @@ def printrecord():
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
     querydata = cur.execute(f"SELECT * FROM Record_table WHERE user_id ='{userid}' ORDER BY record_id DESC LIMIT 10 ")
-    result = querydata.fetchall()
+    df_result = querydata.fetchall()
     con.close()
     
     if result:
+        retturn df_result
+        '''
         for i in len(result):
             for row in result:
                 array1[i][0] = row[5]
@@ -255,7 +258,7 @@ def printrecord():
                 array1[i][2] = row[3]
                 array1[i][3] = row[4]
         return array1 
-        
+        '''
         #return json.dumps(result, ensure_ascii=False).encode('utf8')
     else:
         return "DB do not have data"    
