@@ -245,11 +245,11 @@ def printrecord():
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
     querydata = cur.execute(f"SELECT * FROM Record_table WHERE user_id ='{userid}' ORDER BY record_id DESC LIMIT 10 ")
-    df_result = querydata.fetchall()
+    result = list(querydata.fetchall())
     con.close()
     
     if result:
-        retturn df_result
+        return result
         '''
         for i in len(result):
             for row in result:
