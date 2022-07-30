@@ -2,7 +2,6 @@
 from flask import Flask, request, jsonify, json, session
 from datetime import timedelta
 import sqlite3, os, sys
-from pandas import DataFrame
 
 os.path.join(__file__, 'MISProject_database.db')
 print(os.path.abspath(os.path.dirname(__file__)))
@@ -247,7 +246,6 @@ def printrecord():
     querydata = cur.execute(f"SELECT * FROM Record_table WHERE user_id ='{userid}' ORDER BY record_id DESC LIMIT 10 ")
     result = querydata.fetchall()
     con.close()
-    
     if result:
         return json.dumps(result, ensure_ascii=False).encode('utf8')
         '''
