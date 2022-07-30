@@ -141,7 +141,7 @@ def print():
         return '{} {} {} {} {} {} {} {} {} {} {} {} {} {} {}'.format(result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],result[8],result[9],result[10],result[11],result[12],result[13],result[14])
     else:
         return "error-menuName not found in db"
-
+'''
 @app.route('printmostdomenu',methods=['GET','POST'])
 def printmost():
     if request.method == 'POST':
@@ -151,21 +151,18 @@ def printmost():
     cur = con.cursor()
     querydata1 = cur.execute(f"SELECT COUNT(*) FROM Record_table WHERE `user_id`='{userid}' AND `menuname`='促進血液循環' ")
     result1 = querydata1.fetchone()
-    '''
     querydata2 = cur.execute(f"SELECT COUNT(*) FROM Record_table WHERE `user_id`='{userid}' AND `menuname`='全身放鬆' ")
     result2 = querydata2.fetchone()
     querydata3 = cur.execute(f"SELECT COUNT(*) FROM Record_table WHERE `user_id`='{userid}' AND `menuname`='核心訓練' ")
     result3 = querydata3.fetchone()
-    '''
+
     con.close
-    if result1:
-        return str(result1[0])
-    '''
+    
     if result1 or result2 or result3:
         return '{} {} {}'.format(result1[0],result2[0],result3[0])
     else:
         return "DB no record"
-    '''
+'''
 def insert_record_table(userid,menuname,menucal,score):
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
