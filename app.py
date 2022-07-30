@@ -150,13 +150,16 @@ def printmost():
     cur = con.cursor()
     querydata1 = cur.execute(f"SELECT COUNT(menuname) FROM Record_table WHERE `user_id`='{userid}' AND `menuname`='促進血液循環' ")
     result1 = querydata1.fetchone()
+    '''
     querydata2 = cur.execute(f"SELECT COUNT(menuname) FROM Record_table WHERE `user_id`='{userid}' AND `menuname`='全身放鬆' ")
     result2 = querydata2.fetchone()
     querydata3 = cur.execute(f"SELECT COUNT(menuname) FROM Record_table WHERE `user_id`='{userid}' AND `menuname`='核心訓練' ")
     result3 = querydata3.fetchone()
+    '''
     con.close
-    if result1 or result2 or result3:
-        return '{} {} {}'.format(result1[0],result2[0],result3[0])
+    if result1:
+        return str(result1[0])
+        #return '{} {} {}'.format(result1[0],result2[0],result3[0])
     else:
         return "current DB have no data"
     
