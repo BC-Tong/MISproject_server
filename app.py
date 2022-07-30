@@ -141,7 +141,7 @@ def print():
         return '{} {} {} {} {} {} {} {} {} {} {} {} {} {} {}'.format(result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],result[8],result[9],result[10],result[11],result[12],result[13],result[14])
     else:
         return "error-menuName not found in db"
-
+'''
 @app.route('printmostdomenu',methods=['GET','POST'])
 def printmost():
     if request.method == 'POST':
@@ -159,7 +159,7 @@ def printmost():
     
     #return str(result1[0])
     return '{} {} {}'.format(result1[0],result2[0],result3[0])
-    
+'''    
 def insert_record_table(userid,menuname,menucal,score):
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
@@ -227,7 +227,8 @@ def record():
         elif checkstr == "No Data":
             insertResult = insert_exp_table(userid,username,score)
             if insertResult == "Success insert":
-                return "Successful insert record & exp"
+                new_exp = get_new_exp(userid,score)
+                return '{} {}'.format("Successful insert record & exp ->",new_exp)
             else:
                 return "insert exp failed"
     else:
