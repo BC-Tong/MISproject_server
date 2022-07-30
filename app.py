@@ -151,18 +151,21 @@ def printmost():
     cur = con.cursor()
     querydata1 = cur.execute(f"SELECT COUNT(*) FROM Record_table WHERE `user_id`='{userid}' AND `menuname`='促進血液循環' ")
     result1 = querydata1.fetchone()
+    '''
     querydata2 = cur.execute(f"SELECT COUNT(*) FROM Record_table WHERE `user_id`='{userid}' AND `menuname`='全身放鬆' ")
     result2 = querydata2.fetchone()
     querydata3 = cur.execute(f"SELECT COUNT(*) FROM Record_table WHERE `user_id`='{userid}' AND `menuname`='核心訓練' ")
     result3 = querydata3.fetchone()
+    '''
     con.close
-    
-    #return str(result1[0])
+    if result1:
+        return str(result1[0])
+    '''
     if result1 or result2 or result3:
         return '{} {} {}'.format(result1[0],result2[0],result3[0])
     else:
         return "DB no record"
-    
+    '''
 def insert_record_table(userid,menuname,menucal,score):
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
