@@ -155,7 +155,10 @@ def printmost():
     querydata3 = cur.execute(f"SELECT COUNT(menuname) FROM Record_table WHERE `user_id`='{userid}' AND `menuname`='核心訓練' ")
     result3 = querydata3.fetchone()
     con.close
-    return '{} {} {}'.format(result1[0],result2[0],result3[0])
+    if result1 or result2 or result3:
+        return '{} {} {}'.format(result1[0],result2[0],result3[0])
+    else:
+        return "current DB have no data"
     
 def insert_record_table(userid,menuname,menucal,score):
     con =sqlite3.connect('MISProject_database.db')
