@@ -249,7 +249,7 @@ def printrecord():
     con.close()
     
     if result:
-        return result
+        return json.dumps(result, ensure_ascii=False).encode('utf8')
         '''
         for i in len(result):
             for row in result:
@@ -259,7 +259,6 @@ def printrecord():
                 array1[i][3] = row[4]
         return array1 
         '''
-        #return json.dumps(result, ensure_ascii=False).encode('utf8')
     else:
         return "DB do not have data"    
     
