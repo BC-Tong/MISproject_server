@@ -252,12 +252,10 @@ def printrecord():
         objects_list = []
         for row in result:
             d = collections.OrderedDict()
-            d["record_id"] = row[0]
-            d["user_id"] = row[1]
+            d["finish_time"] = row[5]
             d["menuname"] = row[2]
             d["calories"] = row[3]
             d["score"] = row[4]
-            d["finish_time"] = row[5]
             objects_list.append(d)
         return json.dumps(objects_list,indent=2, ensure_ascii=False).encode('utf8')
     else:
