@@ -2,6 +2,7 @@
 from flask import Flask, request, jsonify, json, session
 from datetime import timedelta
 import sqlite3, os, sys
+import collections
 
 os.path.join(__file__, 'MISProject_database.db')
 print(os.path.abspath(os.path.dirname(__file__)))
@@ -247,17 +248,18 @@ def printrecord():
     result = querydata.fetchall()
     con.close()
     if result:
-        return jsonify(result)
         #return json.dumps(result, ensure_ascii=False).encode('utf8')
-        '''
-        for i in len(result):
-            for row in result:
-                array1[i][0] = row[5]
-                array1[i][1] = row[2]
-                array1[i][2] = row[3]
-                array1[i][3] = row[4]
-        return array1 
-        '''
+        objects_list = []
+        for row in result:
+            d = collections.OrderedDict()
+            d["record_id"] = row[0]
+            d["user_id"] = row[1]
+            d["menuname"] = row[2]
+            d["calories"] = row[3]
+            d["score"] = row[4]
+            d["finish_time"] = row[5]
+            objects_list.append(d)
+        return json.dumps(objects_list)
     else:
         return "DB do not have data"    
     
