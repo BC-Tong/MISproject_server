@@ -284,8 +284,8 @@ def insert_rank(new_user_name,new_score):
     con.close
     return "Success"
      
-@app.route('/testunity', methods=['GET', 'POST'])
-def testunity():
+@app.route('/storeRank', methods=['GET', 'POST'])
+def storeRank():
     if request.method == 'POST':
         data = request.get_json()
         new_user_name = data['userName']
@@ -295,15 +295,24 @@ def testunity():
         if result == "Success":
             con = sqlite3.connect('MISProject_database.db')
             cur = con.cursor()
-            querydata = cur.execute(f"SELECT username,userrank FROM Rank_table ORDER BY userrank DESC LIMIT 20")
-            result = querydata.fetchall()
+            querydata = cur.execute(f"SELECT username,userrank FROM Rank_table WHERE rank_id = (SELECT MAX(rank_id) FROM Rank_table)")
+            result1 = querydata.fetchone()
             con.close()
-            if result:
-                return json.dumps(result, ensure_ascii=False).encode('utf8')
-            else:
-                return "failed get data from DB"
+            return '{} {} {} {}'.format("insert success with username:",result1[0]," rank:",result1[1])
         else:
             return "insert failed"
+
+@app.route('/getTop20Rank', methods=['GET', 'POST'])
+def getTop20Rankt():
+    con = sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    querydata = cur.execute(f"SELECT username,userrank FROM Rank_table ORDER BY userrank DESC LIMIT 20")
+    result = querydata.fetchall()
+    con.close()
+    if result:
+        return json.dumps(result, ensure_ascii=False).encode('utf8')
+    else:
+        return "failed get data from DB"    
 
 #傳username,exp,maxrnak到unity        
 @app.route('/getuserdata', methods=['GET', 'POST'])
