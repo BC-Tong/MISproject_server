@@ -259,7 +259,7 @@ def printrecord():
             d["score"] = row[4]
             d["finish_time"] = row[5]
             objects_list.append(d)
-        return json.dumps(objects_list)
+        return json.dumps(objects_list, ensure_ascii=False).encode('utf8')
     else:
         return "DB do not have data"    
     
