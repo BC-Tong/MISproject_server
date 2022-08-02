@@ -247,7 +247,8 @@ def printrecord():
     result = querydata.fetchall()
     con.close()
     if result:
-        return json.dumps(result, ensure_ascii=False).encode('utf8')
+        return jsonify(result)
+        #return json.dumps(result, ensure_ascii=False).encode('utf8')
         '''
         for i in len(result):
             for row in result:
