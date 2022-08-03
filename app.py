@@ -316,23 +316,23 @@ def get_userdata(username):
     con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
     querydata = cur.execute(f"SELECT username,exp FROM exp_table WHERE `username`='{username}'")
-    result1 = querydata.fetchone()
+    result = querydata.fetchone()
     con.close
-    if result1:
-        return result1
+    if result:
+        return result
     else:
-        return "get_userdata fail"
+        return False
     
 def get_maxrank(username):
     con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
     querydata = cur.execute(f"SELECT MAX(userrank) FROM Rank_table WHERE `username`='{username}'")
-    result2 = querydata.fetchone()
+    result = querydata.fetchone()
     con.close
-    if result2:
-        return result2
+    if result:
+        return result
     else:
-        return "get_maxrank fail"    
+        return False    
 
 #傳username,exp,maxrnak到unity        
 @app.route('/getuserdata', methods=['GET', 'POST'])
@@ -342,25 +342,14 @@ def getuserdata():
         username = data['userName']
     result1 = get_userdata(username)
     result2 = get_maxrank(username)
-    if result1 != "get_userdata fail":
-        if result2 != "get_maxrank fail":
+    if result1:
+        if result2:
             return '{} {} {} {} {} {}'.format("userName",result1[0]," Exp",result1[1]," maxRank",result2[0])
         else:
             return "get_maxrank fail"
     else:
         return "get_userdata fail"
         
-    '''    
-    con = sqlite3.connect('MISProject_database.db')
-    cur = con.cursor()
-    querydata = cur.execute(f"SELECT username,exp,MAX(userrank) FROM exp_table JOIN Rank_table ON `username`='{username}' ")
-    result = querydata.fetchone()
-    con.close()
-    if result:
-        return json.dumps(result, ensure_ascii=False).encode('utf8')
-    else:
-        return "DB have no data"
-    '''    
 if __name__ == "__main__":
     app.config['JSON_AS_ASCII'] = False
     
