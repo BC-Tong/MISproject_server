@@ -336,8 +336,9 @@ def get_maxrank(username):
 
 #傳username,exp,maxrnak到unity        
 @app.route('/getuserdata', methods=['GET', 'POST'])
-def getSkillPoint():
+def getuserdata():
     if request.method == 'POST':
+        data = request.get_json()
         username = data['userName']
     result1 = get_userdata(username)
     result2 = get_maxrank(username)
