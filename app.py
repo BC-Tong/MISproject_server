@@ -340,10 +340,15 @@ def getuserdata():
     if request.method == 'POST':
         data = request.get_json()
         username = data['userName']
-    result1 = get_userdata(username)
+    con = sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    querydata = cur.execute(f"SELECT username,exp FROM exp_table WHERE `username`='{username}'")
+    result = querydata.fetchone()
+    con.close
+    #result1 = get_userdata(username)
     #result2 = get_maxrank(username)
-    if result1:
-        return '{} {} {} {}'.format("userName:",result1[0]," Exp:",result1[1])
+    if result:
+        return '{} {} {} {}'.format("userName:",result[0]," Exp:",result[1])
         #if result2:
         #    return '{} {} {} {} {} {}'.format("userName",result1[0]," Exp",result1[1]," maxRank",result2[0])
         #else:
