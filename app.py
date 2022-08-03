@@ -315,7 +315,7 @@ def getTop20Rankt():
 def get_userdata(username):
     con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f"SELECT username,exp FROM exp_table WHERE `username`='{username}'")
+    querydata = cur.execute(f"SELECT exp FROM exp_table WHERE `username`='{username}'")
     result = querydata.fetchone()
     con.close
     if result:
@@ -345,9 +345,9 @@ def getuserdata():
     if result1:
         #return '{} {} {} {}'.format("userName:",result[0]," Exp:",result[1])
         if result2:
-            return '{} {} {} {} {} {}'.format("userName",result1[0]," Exp",result1[1]," maxRank",result2[0])
+            return '{} {} {} {}'.format("Exp: ",result1[0]," maxRank: ",result2[0])
         else:
-            return '{} {} {} {} {}'.format("userName",result1[0]," Exp",result1[1]," but no rank_data in DB")
+            return '{} {} {}'.format("Exp: ",result1[0]," but no rank_data in DB")
     else:
         return "get_userdata fail"
         
