@@ -322,7 +322,7 @@ def get_userdata(username):
         return result
     else:
         return False
-    
+'''    
 def get_maxrank(username):
     con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
@@ -333,7 +333,7 @@ def get_maxrank(username):
         return result
     else:
         return False    
-
+'''
 #傳username,exp,maxrnak到unity        
 @app.route('/getuserdata', methods=['GET', 'POST'])
 def getuserdata():
@@ -341,12 +341,13 @@ def getuserdata():
         data = request.get_json()
         username = data['userName']
     result1 = get_userdata(username)
-    result2 = get_maxrank(username)
+    #result2 = get_maxrank(username)
     if result1:
-        if result2:
-            return '{} {} {} {} {} {}'.format("userName",result1[0]," Exp",result1[1]," maxRank",result2[0])
-        else:
-            return "get_maxrank fail"
+        return '{} {} {} {}'.format("userName:",result1[0]," Exp:",result1[1])
+        #if result2:
+        #    return '{} {} {} {} {} {}'.format("userName",result1[0]," Exp",result1[1]," maxRank",result2[0])
+        #else:
+        #    return "get_maxrank fail"
     else:
         return "get_userdata fail"
         
