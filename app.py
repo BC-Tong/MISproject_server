@@ -322,32 +322,16 @@ def get_userdata(username):
         return result
     else:
         return False
-   
-def get_maxrank(username):
-    con = sqlite3.connect('MISProject_database.db')
-    cur = con.cursor()
-    querydata = cur.execute(f"SELECT MAX(userrank) FROM Rank_table WHERE `username`='{username}'")
-    result = querydata.fetchone()
-    con.close
-    if result:
-        return result
-    else:
-        return False    
 
-#傳username,exp,maxrnak到unity        
+#傳exp到unity
 @app.route('/getuserdata', methods=['GET', 'POST'])
 def getuserdata():
     if request.method == 'POST':
         data = request.get_json()
         username = data['userName']
-    result1 = get_userdata(username)
-    result2 = get_maxrank(username)
-    if result1:
-        #return '{} {} {} {}'.format("userName:",result[0]," Exp:",result[1])
-        if result2:
-            return '{} {} {} {}'.format("Exp: ",result1[0]," maxRank: ",result2[0])
-        else:
-            return '{} {} {}'.format("Exp: ",result1[0]," but no rank_data in DB")
+    result = get_userdata(username)
+    if result:
+        return '{} {}'.format("Exp: ",result[0])
     else:
         return "get_userdata fail"
         
