@@ -99,7 +99,10 @@ def getExp():
     querydata = cur.execute(f"SELECT exp FROM exp_table WHERE `username`='{username}'")
     result = querydata.fetchone()
     con.close
-    return result
+    if result:
+        return result
+    else:
+        return "LV.0"
 
 def print_AllMenuName():
     con = sqlite3.connect('MISProject_database.db')
