@@ -312,7 +312,7 @@ def getTop20Rankt():
     else:
         return "failed get data from DB"    
 
-def get_userdata(username):
+def get_exp(username):
     con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
     querydata = cur.execute(f"SELECT exp FROM exp_table WHERE `username`='{username}'")
@@ -322,6 +322,17 @@ def get_userdata(username):
         return result
     else:
         return False
+    
+def get_sex(username):
+    con = sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    querydata = cur.execute(f"SELECT UserSex FROM User_table WHERE `UserName`='{username}'")
+    result = querydata.fetchone()
+    con.close
+    if result:
+        return result
+    else:
+        return False    
 
 #傳exp到unity
 @app.route('/getuserdata', methods=['GET', 'POST'])
@@ -329,11 +340,15 @@ def getuserdata():
     if request.method == 'POST':
         data = request.get_json()
         username = data['userName']
-    result = get_userdata(username)
+    result = get_exp(username)
+    result2 = get_sex(username)
     if result:
-        return '{} {}'.format("Exp: ",result[0])
+        if result2:
+            return '{} {} {} {}'.format("Exp: ",result[0]," Gender: ",result2[0])
+        else:
+            return '{} {} {}'.format("Exp: ",result[0]," get_sex failed")
     else:
-        return "get_userdata fail"
+        return "get_exp fail"
         
 if __name__ == "__main__":
     app.config['JSON_AS_ASCII'] = False
