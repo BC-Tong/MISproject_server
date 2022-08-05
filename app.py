@@ -100,7 +100,7 @@ def getExp():
     result = querydata.fetchone()
     con.close
     if result:
-        return result[0]
+        return int(result[0])
     else:
         return "LV.0"
 
