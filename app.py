@@ -90,43 +90,17 @@ def register():
     else:
         return 'wrong method'    
 
-@app.route('/currentuser',methods=['GET','POST'])
-def recordsession():
+@app.route('/getExp',methods=['GET','POST'])
+def getExp():
     if request.method == 'POST':
         username = request.form['username']
-    session['username'] = username
-    if 'username' in session:
-        return "sussess session"
-    else:
-        return "session failed"
-    
-@app.route('/getcurrentuser')
-def getcurrentusername():
-    if 'username' in session:
-        username = session.get('username')
-        return str(username)
-    else:
-        return "session failed"
+    con = sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    querydata = cur.execute(f"SELECT exp FROM exp_table WHERE `username`='{username}'")
+    result = querydata.fetchone()
+    con.close
+    return result
 
-'''
-currentUsername = "test"
-
-def modify(username):
-    global currentUsername
-    currentUsername = username
-    return str(currentUsername)
-    
-@app.route('/currentuser', methods=['GET', 'POST'])
-def currentuser():
-    if request.method == 'POST':
-        username = request.form['username']
-        return modify(username)
-    
-@app.route('/getcurrentuser',methods=['GET',['POST'])
-def getcurrentuser():
-    global currentUsername
-    return str(currentUsername)
-'''
 def print_AllMenuName():
     con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
