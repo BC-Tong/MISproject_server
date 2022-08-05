@@ -346,9 +346,9 @@ def getuserdata():
         if result2:
             return '{} {} {} {}'.format("Exp: ",result[0]," Gender: ",result2[0])
         else:
-            return '{} {} {}'.format("Exp: ",result[0]," get_sex failed")
+            return '{} {} {}'.format("Exp: ",result[0]," But do not get gender from DB")
     else:
-        return "get_exp fail"
+        return "get_exp fail or DB do not have data"
         
 if __name__ == "__main__":
     app.config['JSON_AS_ASCII'] = False
