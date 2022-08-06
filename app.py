@@ -29,8 +29,6 @@ def register_action():
         return '請輸入email'
     elif not password:
         return '請輸入password'
-    #elif len(password)<5:
-    #    return '密碼必須大於5碼' 
     elif not sex:
         return '請輸入password'
     elif not birthdate:
@@ -127,19 +125,20 @@ def printmostdomenu():
         
     con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata1 = cur.execute(f"SELECT COUNT(*) FROM Record_table WHERE `user_id`='{userid}' AND `menuname`='促進血液循環' ")
+    querydata1 = cur.execute(f"SELECT COUNT(record_id) FROM Record_table WHERE `user_id`='{userid}' AND `menuname`='促進血液循環' ")
     result1 = querydata1.fetchone()
+    con.close
+    if result1:
+        return '{} {} {}'.format("促進血液循環共做",result1[0],"次")
+    else:
+        return "count menu failed OR do not have record"
     '''
     querydata2 = cur.execute(f"SELECT COUNT(*) FROM Record_table WHERE `user_id`='{userid}' AND `menuname`='全身放鬆' ")
     result2 = querydata2.fetchone()
     querydata3 = cur.execute(f"SELECT COUNT(*) FROM Record_table WHERE `user_id`='{userid}' AND `menuname`='核心訓練' ")
     result3 = querydata3.fetchone()
     '''
-    con.close
-    if result1:
-        return '{} {} {}'.format("促進血液循環共做",result1[0],"次")
-    else:
-        return "count menu failed"
+    
     '''
     if result1 or result2 or result3:
         return '{} {} {}'.format(result1[0],result2[0],result3[0])
