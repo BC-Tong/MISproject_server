@@ -232,6 +232,13 @@ def menucount(userid):
     result3 = querydata3.fetchone()
     con.close()
     if result1 and result2 and result3:
+        countList = [result1[0],result2[0],result3[0]]
+        countList = sorted(countList)
+        return countList
+    else:
+        return "count error"
+    
+        '''
         if result1[0]>=result2[0] and result1[0]>=result3[0]:
             if result2[0]>=result3[0]:
                 return '{} {} {} {} {} {}'format(menu1,result1[0],menu2,result2[0],menu3,result3[0])
@@ -249,8 +256,7 @@ def menucount(userid):
                 return '{} {} {} {} {} {}'format(menu3,result3[0],menu2,result2[0],menu1,result1[0])
             else:
                 return '{} {} {} {} {} {}'format(menu3,result3[0],menu1,result1[0],menu2,result2[0])
-    else:
-        return "count error"
+        '''        
     
 @app.route('/printmost', methods=['GET', 'POST'])
 def print_mostdo():
