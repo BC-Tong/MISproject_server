@@ -125,7 +125,7 @@ def printmostdomenu():
         
     con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata1 = cur.execute(f"SELECT COUNT(record_id) FROM Record_table WHERE `user_id`='{userid}' AND `menuname`='促進血液循環' ")
+    querydata1 = cur.execute(f"SELECT COUNT(record_id) FROM Record_table WHERE `user_id`='{userid}' AND `menuname`='"促進血液循環"' ")
     result1 = querydata1.fetchone()
     con.close
     if result1:
