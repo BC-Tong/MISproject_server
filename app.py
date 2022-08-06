@@ -234,7 +234,21 @@ def menucount(userid):
     if result1 and result2 and result3:
         countList = [result1[0],result2[0],result3[0]]
         countList = sorted(countList)
-        return countList
+        if countList[2] == result1[0]:
+            if countList[1] == result2[0]:
+                return '{} {} {}'.format(menu1,menu2,menu3)
+            else:
+                return '{} {} {}'.format(menu1,menu3,menu2)
+        if countList[2] == result2[0]:
+            if countList[1] == result1[0]:
+                return '{} {} {}'.format(menu2,menu1,menu3)
+            else:
+                return '{} {} {}'.format(menu2,menu3,menu1)
+        if countList[2] == result3[0]:
+            if countList[1] == result2[0]:
+                return '{} {} {}'.format(menu3,menu2,menu1)
+            else:
+                return '{} {} {}'.format(menu3,menu1,menu2)    
     else:
         return "count error"
     
