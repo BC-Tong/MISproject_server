@@ -215,22 +215,36 @@ def printrecord():
     else:
         return "DB do not have data"    
     
-@app.route('/printmost', methods=['GET', 'POST'])
-def print_mostdo():
-    if request.method == 'POST':
-        userid = request.form['userid']
+def menucount(userid):
     menu1 = "促進血液循環"
     menu2 = "全身放鬆"
     menu3 = "核心訓練"
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f"SELECT COUNT(record_id) FROM Record_table WHERE `user_id` ='{userid}' AND `menuname` = '{menu1}'")
-    result = querydata.fetchone()
+    
+    querydata1 = cur.execute(f"SELECT COUNT(record_id) FROM Record_table WHERE `user_id` ='{userid}' AND `menuname` = '{menu1}'")
+    result1 = querydata1.fetchone()
+    
+    querydata2 = cur.execute(f"SELECT COUNT(record_id) FROM Record_table WHERE `user_id` ='{userid}' AND `menuname` = '{menu2}'")
+    result2 = querydata2.fetchone()
+    
+    querydata3 = cur.execute(f"SELECT COUNT(record_id) FROM Record_table WHERE `user_id` ='{userid}' AND `menuname` = '{menu3}'")
+    result3 = querydata3.fetchone()
     con.close()
-    if result:
-        return '{}'.format(result[0])
+    if result1 and result2 and result3:
+        return '{} {} {} {} {} {}'.format(menu1,result1[0],menu2,result2[0],menu3,result3[0])
     else:
-        return "null"
+        return "count error"
+    
+@app.route('/printmost', methods=['GET', 'POST'])
+def print_mostdo():
+    if request.method == 'POST':
+        userid = request.form['userid']
+    result = menucount(userid)
+    if result:
+        return str(result)
+    else:
+        return "menucount fail"
     
 @app.route('/test', methods=['GET', 'POST'])
 def test():
