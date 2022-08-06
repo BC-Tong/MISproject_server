@@ -118,15 +118,6 @@ def print():
     else:
         return "error-menuName not found in db"
 
-@app.route('printmostdomenu',methods=['GET','POST'])
-def printmostdomenu():
-    if request.method == 'POST':
-        userid = request.form['userid']
-    menu1 = "促進血液循環"
-    menu2 = "全身放鬆"
-    menu3 = "核心訓練"
-    retrun '{} {} {} {}'.format(userid,menu1,menu2,menu3)
-
 def insert_record_table(userid,menuname,menucal,score):
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
@@ -223,6 +214,16 @@ def printrecord():
         return json.dumps(objects_list,indent=2, ensure_ascii=False).encode('utf8')
     else:
         return "DB do not have data"    
+'''
+@app.route('printmostdomenu',methods=['GET','POST'])
+def printmostdomenu():
+    if request.method == 'POST':
+        userid = request.form['userid']
+    menu1 = "促進血液循環"
+    menu2 = "全身放鬆"
+    menu3 = "核心訓練"
+    retrun '{} {} {} {}'.format(userid,menu1,menu2,menu3)    
+'''    
     
 @app.route('/scoreupload', methods=['GET', 'POST'])
 def score_upload():
