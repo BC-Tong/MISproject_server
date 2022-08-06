@@ -127,26 +127,20 @@ def printmostdomenu():
     menu3 = "核心訓練"
     con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata1 = cur.execute(f"SELECT count(record_id) FROM Record_table WHERE `user_id`='{userid}' AND `menuname`='{menu1}' ")
-    result1 = querydata1.fetchone()
+    querydata1 = cur.execute(f"SELECT record_id FROM Record_table WHERE `user_id`='{userid}' AND `menuname`='{menu1}' ")
+    result1 = querydata1.fetchall()
     con.close
     if result1:
-        return '{} {} {}'.format("促進血液循環共做",result1[0],"次")
+        objects_list = []
+        for row in result1:
+            d = collections.OrderedDict()
+            d["record_id"] = row[0]
+            objects_list.append(d)
+        return objects_list
+        #return '{} {} {}'.format("促進血液循環共做",result1[0],"次")
     else:
         return "count menu failed OR do not have record"
-    '''
-    querydata2 = cur.execute(f"SELECT COUNT(*) FROM Record_table WHERE `user_id`='{userid}' AND `menuname`='全身放鬆' ")
-    result2 = querydata2.fetchone()
-    querydata3 = cur.execute(f"SELECT COUNT(*) FROM Record_table WHERE `user_id`='{userid}' AND `menuname`='核心訓練' ")
-    result3 = querydata3.fetchone()
-    '''
-    
-    '''
-    if result1 or result2 or result3:
-        return '{} {} {}'.format(result1[0],result2[0],result3[0])
-    else:
-        return "DB no record"
-    '''
+
 def insert_record_table(userid,menuname,menucal,score):
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
