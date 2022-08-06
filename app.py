@@ -238,13 +238,13 @@ def menucount(userid):
             else:
                 return '{} {} {} {} {} {}'format(menu1,result1[0],menu3,result3[0],menu2,result2[0])
             
-        else if result2[0]>=result1[0] and result2[0]>=result3[0]:
+        if result2[0]>=result1[0] and result2[0]>=result3[0]:
             if result1[0]>=result3[0]:
                 return '{} {} {} {} {} {}'format(menu2,result2[0],menu1,result1[0],menu3,result3[0])
             else:
                 return '{} {} {} {} {} {}'format(menu2,result2[0],menu3,result3[0],menu1,result1[0])
             
-        else if result3[0]>=result2[0] and result3[0]>=result1[0]:
+        if result3[0]>=result2[0] and result3[0]>=result1[0]:
             if result2[0]>=result1[0]:
                 return '{} {} {} {} {} {}'format(menu3,result3[0],menu2,result2[0],menu1,result1[0])
             else:
