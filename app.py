@@ -214,22 +214,12 @@ def printrecord():
         return json.dumps(objects_list,indent=2, ensure_ascii=False).encode('utf8')
     else:
         return "DB do not have data"    
-'''
-@app.route('printmostdomenu',methods=['GET','POST'])
-def printmostdomenu():
+    
+@app.route('/printmost', methods=['GET', 'POST'])
+def print_mostdo():
     if request.method == 'POST':
         userid = request.form['userid']
-    menu1 = "促進血液循環"
-    menu2 = "全身放鬆"
-    menu3 = "核心訓練"
-    retrun '{} {} {} {}'.format(userid,menu1,menu2,menu3)    
-'''    
-    
-@app.route('/scoreupload', methods=['GET', 'POST'])
-def score_upload():
-    if request.method == 'POST':
-        score = request.form['score']
-        return str(score)
+        return str(userid)
     
 @app.route('/test', methods=['GET', 'POST'])
 def test():
