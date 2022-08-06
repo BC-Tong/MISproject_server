@@ -100,7 +100,7 @@ def getExp():
     result = querydata.fetchone()
     con.close
     if result:
-        return '{} {}'.format("Exp: ",result[0])
+        return '{}'.format(result[0])
     else:
         return "LV.0"
 
