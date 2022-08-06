@@ -219,7 +219,18 @@ def printrecord():
 def print_mostdo():
     if request.method == 'POST':
         userid = request.form['userid']
-        return str(userid)
+    menu1 = "促進血液循環"
+    menu2 = "全身放鬆"
+    menu3 = "核心訓練"
+    con =sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    querydata = cur.execute(f"SELECT COUNT(record_id) FROM Record_table WHERE `user_id` ='{userid}' AND `menuname` = '{menu1}'")
+    result = querydata.fetchone()
+    con.close()
+    if result:
+        return '{}'.format(result[0])
+    else:
+        return "null"
     
 @app.route('/test', methods=['GET', 'POST'])
 def test():
