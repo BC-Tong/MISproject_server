@@ -117,7 +117,7 @@ def print():
         return '{} {} {} {} {} {} {} {} {} {} {} {} {} {} {}'.format(result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],result[8],result[9],result[10],result[11],result[12],result[13],result[14])
     else:
         return "error-menuName not found in db"
-
+'''
 @app.route('printmostdomenu',methods=['GET','POST'])
 def printmostdomenu():
     if request.method == 'POST':
@@ -140,7 +140,7 @@ def printmostdomenu():
         #return '{} {} {}'.format("促進血液循環共做",result1[0],"次")
     else:
         return "count menu failed OR do not have record"
-
+'''
 def insert_record_table(userid,menuname,menucal,score):
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
