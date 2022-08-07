@@ -325,6 +325,25 @@ def count_times():
     else:
         return "count_times fail"    
 
+@app.route('/getdate',methods=['GET','POST'])
+def get_date():
+    if request.method == 'POST':
+        userid = request.form['userid']
+    con =sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    querydata = cur.execute(f"SELECT DISTINCT finish_time FROM Record_table WHERE `user_id` ='{userid}' ")
+    result = querydata.fetchall()
+    con.close()
+    if result:
+        objects_list = []
+        for row in result:
+            d = collections.OrderedDict()
+            d["record_time"] = row[0]
+            objects_list.append(d)
+        return json.dumps(objects_list,indent=1, ensure_ascii=False).encode('utf8')
+    else:
+        return "get_date fail"
+    
 def insert_rank(new_user_name,new_score):
     con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
