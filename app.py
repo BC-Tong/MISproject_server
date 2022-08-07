@@ -313,7 +313,7 @@ def count_times():
         userid = request.form['userid']
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
-    querydata = cur.execute(f"SELECT COUNT(record_id) FROM Record_table WHERE `user_id` ='{userid}' AND `finish_time` = DATE(‘now’) ")
+    querydata = cur.execute(f"SELECT COUNT(record_id) FROM Record_table WHERE `user_id` ='{userid}' AND `finish_time` = date('now') ")
     result = querydata.fetchone()
     con.close()
     if result:
