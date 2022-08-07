@@ -252,31 +252,56 @@ def menucount(userid):
     else:
         return "count error"
     
-        '''
-        if result1[0]>=result2[0] and result1[0]>=result3[0]:
-            if result2[0]>=result3[0]:
-                return '{} {} {} {} {} {}'format(menu1,result1[0],menu2,result2[0],menu3,result3[0])
-            else:
-                return '{} {} {} {} {} {}'format(menu1,result1[0],menu3,result3[0],menu2,result2[0])
-            
-        if result2[0]>=result1[0] and result2[0]>=result3[0]:
-            if result1[0]>=result3[0]:
-                return '{} {} {} {} {} {}'format(menu2,result2[0],menu1,result1[0],menu3,result3[0])
-            else:
-                return '{} {} {} {} {} {}'format(menu2,result2[0],menu3,result3[0],menu1,result1[0])
-            
-        if result3[0]>=result2[0] and result3[0]>=result1[0]:
-            if result2[0]>=result1[0]:
-                return '{} {} {} {} {} {}'format(menu3,result3[0],menu2,result2[0],menu1,result1[0])
-            else:
-                return '{} {} {} {} {} {}'format(menu3,result3[0],menu1,result1[0],menu2,result2[0])
-        '''        
-    
 @app.route('/printmost', methods=['GET', 'POST'])
 def print_mostdo():
     if request.method == 'POST':
         userid = request.form['userid']
     result = menucount(userid)
+    if result:
+        return str(result)
+    else:
+        return "menucount fail"
+    
+def hotmenu_count():
+    menu1 = "促進血液循環"
+    menu2 = "全身放鬆"
+    menu3 = "核心訓練"
+    con =sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    
+    querydata1 = cur.execute(f"SELECT COUNT(record_id) FROM Record_table WHERE `menuname` = '{menu1}'")
+    result1 = querydata1.fetchone()
+    
+    querydata2 = cur.execute(f"SELECT COUNT(record_id) FROM Record_table WHERE `menuname` = '{menu2}'")
+    result2 = querydata2.fetchone()
+    
+    querydata3 = cur.execute(f"SELECT COUNT(record_id) FROM Record_table WHERE `menuname` = '{menu3}'")
+    result3 = querydata3.fetchone()
+    con.close()
+    if result1 and result2 and result3:
+        countList = [result1[0],result2[0],result3[0]]
+        countList = sorted(countList)
+        if countList[2] == result1[0]:
+            if countList[1] == result2[0]:
+                return '{} {} {}'.format(menu1,menu2,menu3)
+            else:
+                return '{} {} {}'.format(menu1,menu3,menu2)
+        if countList[2] == result2[0]:
+            if countList[1] == result1[0]:
+                return '{} {} {}'.format(menu2,menu1,menu3)
+            else:
+                return '{} {} {}'.format(menu2,menu3,menu1)
+        if countList[2] == result3[0]:
+            if countList[1] == result2[0]:
+                return '{} {} {}'.format(menu3,menu2,menu1)
+            else:
+                return '{} {} {}'.format(menu3,menu1,menu2)    
+    else:
+        return "count error"
+    
+@app.route('/printhot', methods=['GET', 'POST'])
+def print_hot():
+    result = hotmenu_count()
     if result:
         return str(result)
     else:
