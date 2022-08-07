@@ -307,8 +307,8 @@ def print_hot():
     else:
         return "menucount fail"
     
-@app.route('/exerciseCount', methods=['GET', 'POST'])
-def exerciseCount():
+@app.route('/counttimes', methods=['GET', 'POST'])
+def count_times():
     if request.method == 'POST':
         userid = request.form['userid']
     return '{}'.format(userid)
