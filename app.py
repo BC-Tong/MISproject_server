@@ -311,8 +311,6 @@ def print_hot():
 def count_times():
     if request.method == 'POST':
         userid = request.form['userid']
-    return '{}'.format(userid)
-    '''    
     con =sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
     querydata = cur.execute(f"SELECT COUNT(record_id) FROM Record_table WHERE `user_id` ='{userid}' AND `finish_time` = DATE(‘now’) ")
@@ -321,8 +319,7 @@ def count_times():
     if result:
         return '{}'.format(result[0])
     else:
-        return "exerciseCount fail"    
-    '''    
+        return "count_times fail"    
     
 @app.route('/test', methods=['GET', 'POST'])
 def test():
