@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from flask import Flask, request, jsonify, json, session
 from datetime import timedelta
 import sqlite3, os, sys
@@ -10,11 +9,17 @@ print(os.path.abspath(os.path.dirname('MISProject_database.db')))
 
 app = Flask(__name__)
 
-
 @app.route('/')
 def hello_world():
     print(__name__)
-    return 'hello!'        
+    return 'hello!'
+
+@app.route('/test', methods=['GET', 'POST'])
+def test():
+    if(request.method == 'POST'):
+        email = request.form['username']
+        password = request.form['password']
+        return (email)
         
 def register_action():
     username = request.form['username']
@@ -202,7 +207,6 @@ def printrecord():
     result = querydata.fetchall()
     con.close()
     if result:
-        #return json.dumps(result, ensure_ascii=False).encode('utf8')
         objects_list = []
         for row in result:
             d = collections.OrderedDict()
@@ -320,13 +324,6 @@ def count_times():
         return '{}'.format(result[0])
     else:
         return "count_times fail"    
-    
-@app.route('/test', methods=['GET', 'POST'])
-def test():
-    if(request.method == 'POST'):
-        email = request.form['username']
-        password = request.form['password']
-        return (email)
 
 def insert_rank(new_user_name,new_score):
     con = sqlite3.connect('MISProject_database.db')
@@ -405,10 +402,6 @@ def getuserdata():
         return "get_exp fail or DB do not have data"
         
 if __name__ == "__main__":
-    app.config['JSON_AS_ASCII'] = False
-    
-    app.config['SECRET_KEY'] = os.urandom(24)
-    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=31)
     app.run(host='127.0.0.1', port=5050, debug=True)
 
 
