@@ -343,14 +343,33 @@ def get_date():
         return json.dumps(objects_list,indent=1, ensure_ascii=False).encode('utf8')
     else:
         return "get_date fail"
+
+def check_rank_data(new_user_name):
+    con =sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    querydata = cur.execute(f"SELECT * FROM Rank_table WHERE `username`='{new_user_name}' ")
+    result = querydata.fetchone()
+    con.close()
+    if result:
+        return "Have Data"
+    else:
+        return "No Data"    
     
-def insert_rank(new_user_name,new_score):
+def insert_rank_table(new_user_name,new_score):
     con = sqlite3.connect('MISProject_database.db')
     cur = con.cursor()
     cur.execute(f"INSERT INTO Rank_table (`username`, `userrank`) VALUES ('{new_user_name}','{new_score}')")
     con.commit()
     con.close
-    return "Success"
+    return "Success insert"
+
+def update_rank_table(new_user_name,new_score):
+    con =sqlite3.connect('MISProject_database.db')
+    cur = con.cursor()
+    querydata = cur.execute(f"UPDATE Rank_table SET `userrank`='{new_score}' WHERE `username`='{new_user_name}' ")
+    con.commit()
+    con.close()
+    return "Success update"
      
 @app.route('/storeRank', methods=['GET', 'POST'])
 def storeRank():
@@ -358,9 +377,24 @@ def storeRank():
         data = request.get_json()
         new_user_name = data['userName']
         new_score = data['score']
-        
-        result = insert_rank(new_user_name,new_score)
-        if result == "Success":
+    #查看該DB是否有該使用者的資料    
+    checkRank = check_rank_data(new_user_name)
+    #DB已經有紀錄要用update
+    if checkRank == "Have Data":
+        result = update_rank_table(new_user_name,new_score)
+        if result == "Success update":
+            con = sqlite3.connect('MISProject_database.db')
+            cur = con.cursor()
+            querydata = cur.execute(f"SELECT username,userrank FROM Rank_table WHERE `username`='{new_user_name}' ")
+            result1 = querydata.fetchone()
+            con.close()
+            return '{} {} {} {}'.format("update success with username:",result1[0]," rank:",result1[1])
+        else:
+            return "update failed"
+    #DB還沒有紀錄要用insert    
+    elif checkRank == "No Data":
+        result = insert_rank_table(new_user_name,new_score)
+        if result == "Success insert":
             con = sqlite3.connect('MISProject_database.db')
             cur = con.cursor()
             querydata = cur.execute(f"SELECT username,userrank FROM Rank_table WHERE rank_id = (SELECT MAX(rank_id) FROM Rank_table)")
@@ -369,6 +403,8 @@ def storeRank():
             return '{} {} {} {}'.format("insert success with username:",result1[0]," rank:",result1[1])
         else:
             return "insert failed"
+    else:
+        return "function-check_rank_data failed"
 
 @app.route('/getTop20Rank', methods=['GET', 'POST'])
 def getTop20Rankt():
